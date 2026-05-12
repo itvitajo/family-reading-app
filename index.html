@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>우리 가족 독서기록</title>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --beige: #F5EFE6;
+  --beige-deep: #EDE0CC;
+  --beige-white: #FDFAF6;
+  --wood: #C8965A;
+  --wood-deep: #9B6B3A;
+  --wood-soft: #EDD9BC;
+  --wood-pale: #F7EFE3;
+  --gold: #D4A843;
+  --gold-soft: #FBF3DC;
+  --ink: #2C1F0E;
+  --ink-soft: #5C4030;
+  --ink-mute: #8B6B50;
+  --ink-faint: #BCA08A;
+  --border: #DFD0B8;
+  --border-light: #EDE3D4;
+  --green: #3D6B4A;
+  --green-soft: #E4F0E8;
+  --blue: #2B5278;
+  --blue-soft: #E0EBF5;
+  --shadow-sm: 0 2px 8px rgba(155,107,58,0.10);
+  --shadow-md: 0 6px 20px rgba(155,107,58,0.15);
+  --r: 10px;
+  --font: 'Gowun Dodum', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--beige); color: var(--ink); font-family: var(--font); min-height: 100vh; }
+
+/* HEADER */
+.header {
+  background: linear-gradient(160deg, #3D2810 0%, #6B4020 50%, #9B6B3A 100%);
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+.header-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 120px;
+  position: relative;
+}
+.header-text {
+  z-index: 2;
+  padding-bottom: 16px;
+}
+.logo { font-family: var(--font); font-size: 22px; color: #FDF5E8; letter-spacing: .5px; }
+.logo span { color: var(--gold); }
+.logo-sub { font-size: 10px; color: rgba(253,245,232,.55); letter-spacing: .16em; margin-top: 3px; }
+
+/* 일러스트 SVG */
+.header-illust {
+  position: absolute;
+  right: 20px;
+  bottom: 0;
+  width: 220px;
+  height: 110px;
+  z-index: 2;
+}
+
+/* TOP BAR */
+.top-bar { background: var(--beige-white); border-bottom: 1px solid var(--border); padding: 0 20px; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow-sm); }
+.top-bar-inner { max-width: 780px; margin: 0 auto; }
+.user-row { display: flex; align-items: center; border-bottom: 1px solid var(--border-light); min-height: 54px; }
+.user-btn { padding: 12px 16px; font-size: 20px; color: var(--ink-mute); border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; transition: all .2s; font-family: var(--font); }
+.user-btn.active { color: var(--wood-deep); border-bottom-color: var(--wood); }
+.user-btn:hover { color: var(--ink-soft); }
+.edit-name-btn { background: none; border: none; cursor: pointer; color: var(--ink-faint); font-size: 13px; padding: 0 6px 0 0; }
+.edit-name-btn:hover { color: var(--wood); }
+.all-btn { margin-left: auto; font-size: 18px; color: var(--wood-deep); padding: 12px 12px; border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; font-family: var(--font); }
+.all-btn.active { border-bottom-color: var(--wood); }
+.nav-row { display: flex; gap: 6px; padding: 7px 0; }
+.nav-btn { padding: 6px 16px; font-size: 13px; border: 1px solid var(--border); border-radius: 20px; background: none; cursor: pointer; color: var(--ink-mute); font-family: var(--font); transition: all .2s; }
+.nav-btn.active { background: var(--wood-deep); color: white; border-color: var(--wood-deep); }
+.sub-tab-btn { padding: 6px 16px; font-size: 13px; border: 1.5px solid var(--border); border-radius: 20px; background: white; cursor: pointer; color: var(--ink-mute); font-family: var(--font); transition: all .2s; }
+.sub-tab-btn.active { background: var(--gold); color: white; border-color: var(--gold); }
+
+/* MAIN */
+.main { max-width: 780px; margin: 0 auto; padding: 20px; }
+
+/* ADD BTN */
+.add-btn { display: flex; align-items: center; gap: 8px; padding: 12px 20px; background: var(--wood-deep); color: white; border: none; border-radius: var(--r); font-size: 14px; cursor: pointer; margin-bottom: 20px; font-family: var(--font); box-shadow: var(--shadow-sm); transition: all .2s; }
+.add-btn:hover { background: var(--wood); }
+
+/* STATS */
+.stats-row { display: flex; gap: 10px; margin-bottom: 20px; }
+.stat-card { flex: 1; background: white; border: 1px solid var(--border); border-radius: var(--r); padding: 14px; text-align: center; box-shadow: var(--shadow-sm); }
+.stat-num { font-family: var(--font); font-size: 26px; }
+.stat-label { font-size: 11px; color: var(--ink-mute); margin-top: 2px; }
+
+/* LIST */
+.list-item { display: flex; gap: 12px; background: white; border: 1px solid var(--border); border-radius: var(--r); padding: 14px; margin-bottom: 8px; cursor: pointer; transition: box-shadow .2s; box-shadow: var(--shadow-sm); }
+.list-item:hover { box-shadow: var(--shadow-md); }
+.list-cover { width: 50px; height: 72px; object-fit: cover; border-radius: 4px; flex-shrink: 0; box-shadow: var(--shadow-sm); background: var(--beige-deep); }
+.list-cover-ph { width: 50px; height: 72px; border-radius: 4px; flex-shrink: 0; background: var(--wood-pale); display: flex; align-items: center; justify-content: center; font-size: 22px; }
+.list-body { flex: 1; min-width: 0; }
+.list-title { font-size: 14px; color: var(--ink); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.list-author { font-size: 12px; color: var(--ink-mute); margin-bottom: 6px; }
+.list-meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.badge { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-family: var(--font); }
+.badge-done { background: var(--green-soft); color: var(--green); }
+.badge-reading { background: var(--blue-soft); color: var(--blue); }
+.badge-wish { background: var(--beige-deep); color: var(--ink-soft); }
+.list-stars { font-size: 12px; color: var(--gold); }
+.list-date { font-size: 11px; color: var(--ink-faint); }
+.list-price { font-size: 11px; color: var(--ink-mute); }
+.list-memo { font-size: 12px; color: var(--ink-mute); line-height: 1.6; margin-top: 4px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+
+/* SECTION */
+.month-section { margin-bottom: 24px; }
+.section-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; padding-bottom: 8px; }
+.section-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.section-name { font-family: var(--font); font-size: 17px; color: var(--ink); }
+.section-count { font-size: 12px; color: var(--ink-mute); }
+
+/* CHART */
+.chart-card { background: white; border: 1px solid var(--border); border-radius: var(--r); padding: 18px 20px 14px; margin-bottom: 16px; box-shadow: var(--shadow-sm); }
+.chart-title { font-family: var(--font); font-size: 15px; color: var(--ink); margin-bottom: 14px; }
+.chart-row { display: flex; align-items: center; gap: 10px; margin-bottom: 11px; }
+.chart-label { width: 48px; font-size: 12px; color: var(--ink-soft); text-align: right; flex-shrink: 0; font-family: var(--font); }
+.chart-bar-wrap { flex: 1; background: var(--beige-deep); border-radius: 99px; height: 26px; overflow: hidden; }
+.chart-bar { height: 100%; border-radius: 99px; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; transition: width .8s cubic-bezier(.4,0,.2,1); }
+.chart-bar span { color: white; font-size: 11px; font-family: var(--font); }
+.chart-badges { display: flex; gap: 4px; flex-shrink: 0; flex-wrap: wrap; width: 100px; }
+.chart-badge { font-size: 10px; padding: 2px 7px; border-radius: 8px; font-family: var(--font); }
+
+/* MONTH */
+.month-nav { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.month-arrow { width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 50%; background: white; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; color: var(--wood-deep); transition: background .15s; }
+.month-arrow:hover { background: var(--wood-pale); }
+.month-title { font-family: var(--font); font-size: 22px; flex: 1; color: var(--ink); }
+
+/* CALENDAR */
+.cal-wrap { background: white; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; margin-bottom: 20px; box-shadow: var(--shadow-sm); }
+.cal-head-row { display: grid; grid-template-columns: repeat(7,1fr); background: var(--wood-deep); }
+.cal-head-cell { font-size: 11px; color: rgba(253,245,232,.85); text-align: center; padding: 9px 0; font-family: var(--font); }
+.cal-head-cell.sun { color: #FFB3B3; }
+.cal-head-cell.sat { color: #B3D4FF; }
+.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); }
+.cal-cell { border-top: 1px solid var(--border-light); border-right: 1px solid var(--border-light); padding: 4px 3px; cursor: pointer; min-height: 68px; transition: background .15s; }
+.cal-cell:hover { background: var(--beige); }
+.cal-cell.empty { background: transparent; cursor: default; border-color: transparent; }
+.cal-cell.today { background: var(--wood-soft); }
+.cal-cell:nth-child(7n) { border-right: none; }
+.day-num { font-size: 10px; color: var(--ink-mute); margin-bottom: 2px; font-family: var(--font); }
+.day-num.sun-num { color: #D94040; font-weight: 700; }
+.day-num.sat-num { color: #2B5278; font-weight: 700; }
+.day-num.hol-num { color: #D94040; font-weight: 700; }
+.cal-cell.today .day-num { color: var(--wood-deep); font-weight: 700; }
+.day-covers { display: flex; flex-wrap: wrap; gap: 1px; }
+.day-thumb { width: 100%; aspect-ratio: 2/3; object-fit: cover; border-radius: 2px; display: block; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.day-thumb-ph { width: 100%; aspect-ratio: 2/3; border-radius: 2px; background: var(--wood-pale); display: flex; align-items: center; justify-content: center; font-size: 9px; }
+
+/* MODAL */
+.overlay { display: none; position: fixed; inset: 0; background: rgba(44,31,14,.55); z-index: 200; align-items: flex-end; justify-content: center; backdrop-filter: blur(3px); }
+.overlay.open { display: flex; }
+@media(min-width:600px){ .overlay { align-items: center; } }
+.modal { background: var(--beige-white); border-radius: 16px 16px 0 0; width: 100%; max-width: 600px; max-height: 92vh; overflow-y: auto; padding: 24px 20px 36px; box-shadow: 0 -4px 30px rgba(44,31,14,.2); }
+@media(min-width:600px){ .modal { border-radius: 16px; } }
+.modal-title { font-family: var(--font); font-size: 20px; margin-bottom: 18px; color: var(--ink); }
+.search-row { display: flex; gap: 8px; margin-bottom: 10px; }
+.search-input { flex: 1; padding: 10px 13px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-family: var(--font); background: white; outline: none; color: var(--ink); transition: border-color .2s; }
+.search-input:focus { border-color: var(--wood); }
+.search-btn { padding: 10px 16px; background: var(--wood-deep); color: white; border: none; border-radius: 8px; font-size: 13px; cursor: pointer; font-family: var(--font); }
+.search-btn:hover { background: var(--wood); }
+.search-status { font-size: 12px; color: var(--ink-mute); min-height: 20px; margin-bottom: 6px; font-family: var(--font); }
+.search-results { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; max-height: 220px; overflow-y: auto; }
+.search-item { display: flex; gap: 10px; padding: 10px; border: 1.5px solid var(--border-light); border-radius: 8px; cursor: pointer; background: white; transition: border-color .15s; }
+.search-item:hover { border-color: var(--wood); background: var(--wood-pale); }
+.search-item.sel { border-color: var(--wood-deep); background: var(--wood-soft); }
+.s-thumb { width: 42px; height: 60px; object-fit: cover; border-radius: 3px; flex-shrink: 0; }
+.s-thumb-ph { width: 42px; height: 60px; border-radius: 3px; flex-shrink: 0; background: var(--wood-pale); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.s-info h4 { font-size: 13px; margin-bottom: 2px; line-height: 1.4; color: var(--ink); font-family: var(--font); }
+.s-info p { font-size: 11px; color: var(--ink-mute); line-height: 1.5; font-family: var(--font); }
+.sel-preview { display: flex; gap: 12px; padding: 12px; background: var(--wood-pale); border-radius: 8px; margin-bottom: 14px; border: 1px solid var(--wood-soft); }
+.sel-preview img { width: 48px; height: 68px; object-fit: cover; border-radius: 4px; flex-shrink: 0; box-shadow: var(--shadow-sm); }
+.sel-preview .no-img { width: 48px; height: 68px; border-radius: 4px; background: var(--beige-deep); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.sel-preview-info h3 { font-size: 14px; margin-bottom: 2px; color: var(--ink); font-family: var(--font); }
+.sel-preview-info p { font-size: 12px; color: var(--ink-mute); font-family: var(--font); }
+.form-section { border: 1px solid var(--border); border-radius: var(--r); padding: 14px; margin-bottom: 12px; background: white; }
+.form-section-title { font-size: 11px; color: var(--wood-deep); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; font-family: var(--font); }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.field-row.one { grid-template-columns: 1fr; }
+.fg { display: flex; flex-direction: column; gap: 3px; }
+.fg label { font-size: 11px; color: var(--ink-mute); font-family: var(--font); }
+.fg input, .fg select, .fg textarea { padding: 9px 11px; border: 1.5px solid var(--border); border-radius: 7px; font-size: 13px; font-family: var(--font); background: var(--beige); color: var(--ink); outline: none; width: 100%; transition: border-color .2s; }
+.fg input:focus, .fg textarea:focus { border-color: var(--wood); background: white; }
+.fg textarea { min-height: 68px; resize: vertical; }
+.stars-row { display: flex; gap: 3px; }
+.star-btn { font-size: 24px; background: none; border: none; cursor: pointer; color: var(--border); line-height: 1; padding: 0; }
+.star-btn.on { color: var(--gold); }
+.status-group { display: flex; gap: 6px; flex-wrap: wrap; }
+.status-opt { padding: 7px 14px; border: 1.5px solid var(--border); border-radius: 20px; font-size: 12px; cursor: pointer; background: white; color: var(--ink-soft); font-family: var(--font); transition: all .15s; }
+.status-opt.on-done { border-color: var(--green); background: var(--green); color: white; }
+.status-opt.on-reading { border-color: var(--blue); background: var(--blue); color: white; }
+.status-opt.on-wish { border-color: var(--wood); background: var(--wood); color: white; }
+.tag-group { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag-opt { padding: 6px 13px; border: 1.5px solid var(--border); border-radius: 20px; font-size: 12px; cursor: pointer; background: white; color: var(--ink-soft); font-family: var(--font); transition: all .15s; }
+.tag-opt.on { border-color: var(--wood-deep); background: var(--wood-soft); color: var(--wood-deep); }
+.modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px; }
+.btn-cancel { padding: 10px 16px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 13px; background: white; color: var(--ink-soft); cursor: pointer; font-family: var(--font); }
+.btn-save { padding: 10px 22px; background: var(--wood-deep); color: white; border: none; border-radius: 8px; font-size: 13px; cursor: pointer; font-family: var(--font); }
+.btn-save:hover { background: var(--wood); }
+
+/* NAME MODAL */
+.name-overlay { display: none; position: fixed; inset: 0; background: rgba(44,31,14,.45); z-index: 300; align-items: center; justify-content: center; }
+.name-overlay.open { display: flex; }
+.name-modal { background: var(--beige-white); border-radius: 14px; padding: 24px 20px; width: 280px; box-shadow: 0 12px 40px rgba(44,31,14,.2); }
+.name-modal h3 { font-family: var(--font); font-size: 17px; margin-bottom: 4px; color: var(--ink); }
+.name-modal p { font-size: 12px; color: var(--ink-mute); margin-bottom: 14px; font-family: var(--font); }
+.name-input { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 15px; font-family: var(--font); outline: none; background: var(--beige); color: var(--ink); }
+.name-input:focus { border-color: var(--wood); }
+
+/* EMPTY */
+.empty { text-align: center; padding: 48px 20px; color: var(--ink-faint); font-family: var(--font); }
+.empty-icon { font-size: 40px; margin-bottom: 12px; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-text">
+      <div class="logo">우리家 <span>독서기록</span></div>
+      <div class="logo-sub">FAMILY READING LOG</div>
+    </div>
+
+    <!-- 티컵 + 책 수채화 일러스트 -->
+    <svg class="header-illust" viewBox="0 0 240 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- ✦ 작은 별 장식들 -->
+      <text x="10" y="18" font-size="8" fill="#D4A843" opacity="0.7">✦</text>
+      <text x="190" y="14" font-size="6" fill="#D4A843" opacity="0.6">✦</text>
+      <text x="225" y="40" font-size="7" fill="#EDD9BC" opacity="0.5">✦</text>
+      <text x="5" y="70" font-size="5" fill="#D4A843" opacity="0.5">✦</text>
+
+      <!-- ══════════════════════ -->
+      <!-- 왼쪽 — 책 3권 쌓기    -->
+      <!-- ══════════════════════ -->
+      <!-- 책 1 (맨 아래, 진청) -->
+      <rect x="14" y="72" width="52" height="14" rx="3" fill="#3A5F8A"/>
+      <rect x="14" y="72" width="6" height="14" rx="2" fill="#2B4A70"/>
+      <line x1="24" y1="76" x2="62" y2="76" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+      <line x1="24" y1="80" x2="55" y2="80" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+      <!-- 책 2 (중간, 핑크) -->
+      <rect x="18" y="57" width="48" height="14" rx="3" fill="#E8A0B0"/>
+      <rect x="18" y="57" width="6" height="14" rx="2" fill="#D4788A"/>
+      <line x1="28" y1="61" x2="62" y2="61" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+      <line x1="28" y1="65" x2="56" y2="65" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+      <!-- 책 3 (맨 위, 크림) -->
+      <rect x="22" y="42" width="44" height="14" rx="3" fill="#EDD9BC"/>
+      <rect x="22" y="42" width="6" height="14" rx="2" fill="#C8A87A"/>
+      <line x1="32" y1="46" x2="62" y2="46" stroke="rgba(155,107,58,0.3)" stroke-width="1"/>
+      <line x1="32" y1="50" x2="58" y2="50" stroke="rgba(155,107,58,0.2)" stroke-width="1"/>
+      <!-- 작은 꽃 장식 on 책 -->
+      <circle cx="56" cy="49" r="2.5" fill="#E8A0B0" opacity="0.8"/>
+      <circle cx="56" cy="49" r="1" fill="white" opacity="0.7"/>
+
+      <!-- ══════════════════════ -->
+      <!-- 중앙 — 메인 티컵       -->
+      <!-- ══════════════════════ -->
+      <!-- 받침대(소서) -->
+      <ellipse cx="122" cy="103" rx="38" ry="7" fill="#EDD9BC"/>
+      <ellipse cx="122" cy="103" rx="38" ry="7" fill="none" stroke="#C8965A" stroke-width="1.2"/>
+      <!-- 소서 꽃무늬 -->
+      <circle cx="90" cy="103" r="2" fill="#E8A0B0" opacity="0.6"/>
+      <circle cx="154" cy="103" r="2" fill="#E8A0B0" opacity="0.6"/>
+      <circle cx="110" cy="108" r="1.5" fill="#D4A843" opacity="0.5"/>
+      <circle cx="134" cy="108" r="1.5" fill="#D4A843" opacity="0.5"/>
+
+      <!-- 컵 몸체 (핑크 플로럴) -->
+      <path d="M90 68 Q88 96 96 100 Q122 106 148 100 Q156 96 154 68 Z" fill="#F2C4CE"/>
+      <path d="M90 68 Q88 96 96 100 Q122 106 148 100 Q156 96 154 68 Z" fill="none" stroke="#E898A8" stroke-width="1"/>
+      <!-- 컵 입구 타원 -->
+      <ellipse cx="122" cy="68" rx="32" ry="8" fill="#F7D8DF"/>
+      <ellipse cx="122" cy="68" rx="32" ry="8" fill="none" stroke="#E898A8" stroke-width="1"/>
+      <!-- 체크무늬 상단 띠 -->
+      <clipPath id="cupClip">
+        <ellipse cx="122" cy="68" rx="32" ry="8"/>
+      </clipPath>
+      <!-- 꽃무늬 장식 on 컵 -->
+      <!-- 꽃 1 -->
+      <circle cx="105" cy="82" r="5" fill="#F7D8DF" opacity="0.8"/>
+      <circle cx="105" cy="77" r="3" fill="#E8A0B0" opacity="0.7"/>
+      <circle cx="100" cy="82" r="3" fill="#E8A0B0" opacity="0.7"/>
+      <circle cx="110" cy="82" r="3" fill="#E8A0B0" opacity="0.7"/>
+      <circle cx="105" cy="87" r="3" fill="#E8A0B0" opacity="0.7"/>
+      <circle cx="105" cy="82" r="2.5" fill="#FFF0F3"/>
+      <circle cx="105" cy="82" r="1" fill="#E8A0B0"/>
+      <!-- 꽃 2 -->
+      <circle cx="135" cy="86" r="4.5" fill="#F7D8DF" opacity="0.8"/>
+      <circle cx="135" cy="81.5" r="2.5" fill="#D4A843" opacity="0.6"/>
+      <circle cx="130.5" cy="86" r="2.5" fill="#D4A843" opacity="0.6"/>
+      <circle cx="139.5" cy="86" r="2.5" fill="#D4A843" opacity="0.6"/>
+      <circle cx="135" cy="90.5" r="2.5" fill="#D4A843" opacity="0.6"/>
+      <circle cx="135" cy="86" r="2" fill="#FFF8E8"/>
+      <circle cx="135" cy="86" r="1" fill="#D4A843"/>
+      <!-- 잎사귀 -->
+      <ellipse cx="118" cy="80" rx="3" ry="6" fill="#7BA86A" opacity="0.5" transform="rotate(-20,118,80)"/>
+      <ellipse cx="124" cy="92" rx="2.5" ry="5" fill="#7BA86A" opacity="0.4" transform="rotate(15,124,92)"/>
+
+      <!-- 컵 손잡이 (오른쪽) -->
+      <path d="M154 76 Q172 76 172 86 Q172 96 154 96" stroke="#E898A8" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M154 76 Q170 76 170 86 Q170 96 154 96" stroke="#F7D8DF" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+      <!-- 컵 안 음료(따뜻한 갈색) -->
+      <ellipse cx="122" cy="68" rx="28" ry="5.5" fill="#C8865A" opacity="0.5"/>
+      <ellipse cx="122" cy="68" rx="22" ry="3.5" fill="#D4A843" opacity="0.3"/>
+
+      <!-- 김 (steam) -->
+      <path d="M108 58 Q110 50 108 42" stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M118 56 Q121 47 118 38" stroke="rgba(255,255,255,0.4)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M129 57 Q132 48 130 40" stroke="rgba(255,255,255,0.4)" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+      <!-- 파란 리본 -->
+      <!-- 리본 왼쪽 날개 -->
+      <path d="M108 64 Q100 58 95 62 Q100 66 108 64 Z" fill="#5A85C0"/>
+      <!-- 리본 오른쪽 날개 -->
+      <path d="M136 64 Q144 58 149 62 Q144 66 136 64 Z" fill="#5A85C0"/>
+      <!-- 리본 중심 매듭 -->
+      <ellipse cx="122" cy="64" rx="7" ry="5" fill="#6A95D0"/>
+      <ellipse cx="122" cy="64" rx="3.5" ry="2.5" fill="#7AAAE0"/>
+      <!-- 리본 꼬리 -->
+      <path d="M119 67 Q115 74 112 72" stroke="#5A85C0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M125 67 Q129 74 132 72" stroke="#5A85C0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+      <!-- ══════════════════════ -->
+      <!-- 오른쪽 — 작은 책 1권   -->
+      <!-- ══════════════════════ -->
+      <!-- 펼쳐진 책 -->
+      <path d="M170 80 Q192 76 214 80 L214 108 Q192 112 170 108 Z" fill="#EDD9BC"/>
+      <path d="M192 76 L192 112" stroke="#C8965A" stroke-width="1.5"/>
+      <path d="M170 80 Q192 76 214 80" fill="none" stroke="#C8A87A" stroke-width="1"/>
+      <!-- 왼쪽 페이지 줄 -->
+      <line x1="176" y1="87" x2="190" y2="85" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
+      <line x1="176" y1="91" x2="190" y2="90" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
+      <line x1="176" y1="95" x2="190" y2="94" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
+      <line x1="176" y1="99" x2="190" y2="99" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
+      <line x1="176" y1="103" x2="190" y2="103" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
+      <!-- 오른쪽 페이지 줄 -->
+      <line x1="194" y1="85" x2="208" y2="87" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
+      <line x1="194" y1="90" x2="208" y2="91" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
+      <line x1="194" y1="94" x2="208" y2="95" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
+      <line x1="194" y1="99" x2="208" y2="99" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
+      <line x1="194" y1="103" x2="208" y2="103" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
+      <!-- 책 표지 그림자 -->
+      <path d="M170 108 Q192 112 214 108 L214 111 Q192 115 170 111 Z" fill="#C8A87A" opacity="0.4"/>
+
+      <!-- 작은 꽃 장식들 (흩어진) -->
+      <!-- 꽃 A -->
+      <circle cx="30" cy="30" r="4" fill="#F2C4CE" opacity="0.7"/>
+      <circle cx="30" cy="26" r="2.5" fill="#E8A0B0" opacity="0.6"/>
+      <circle cx="26" cy="30" r="2.5" fill="#E8A0B0" opacity="0.6"/>
+      <circle cx="34" cy="30" r="2.5" fill="#E8A0B0" opacity="0.6"/>
+      <circle cx="30" cy="34" r="2.5" fill="#E8A0B0" opacity="0.6"/>
+      <circle cx="30" cy="30" r="2" fill="white" opacity="0.8"/>
+      <!-- 꽃 B -->
+      <circle cx="220" cy="80" r="3.5" fill="#D4A843" opacity="0.6"/>
+      <circle cx="220" cy="76.5" r="2" fill="#E8C060" opacity="0.5"/>
+      <circle cx="216.5" cy="80" r="2" fill="#E8C060" opacity="0.5"/>
+      <circle cx="223.5" cy="80" r="2" fill="#E8C060" opacity="0.5"/>
+      <circle cx="220" cy="83.5" r="2" fill="#E8C060" opacity="0.5"/>
+      <circle cx="220" cy="80" r="1.5" fill="white" opacity="0.7"/>
+      <!-- 작은 잎 -->
+      <ellipse cx="22" cy="38" rx="2" ry="4" fill="#7BA86A" opacity="0.5" transform="rotate(30,22,38)"/>
+      <ellipse cx="35" cy="22" rx="1.5" ry="3" fill="#7BA86A" opacity="0.4" transform="rotate(-20,35,22)"/>
+    </svg>
+  </div>
+</div>
+
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <div class="user-row" id="userRow"></div>
+    <!-- 일반 유저용 탭 -->
+    <div class="nav-row" id="normalNavRow">
+      <button class="nav-btn active" id="nb-list" onclick="setView('list')">📋 리스트</button>
+      <button class="nav-btn" id="nb-month" onclick="setView('month')">📅 월별</button>
+    </div>
+    <!-- 가족현황용 탭 (리스트·월별 + 책·영화 서브탭 통합) -->
+    <div class="nav-row" id="familyNavRow" style="display:none; justify-content:space-between; align-items:center;">
+      <div style="display:flex;gap:6px;">
+        <button class="nav-btn active" id="fnb-list" onclick="setView('list')">📋 리스트</button>
+        <button class="nav-btn" id="fnb-month" onclick="setView('month')">📅 월별</button>
+      </div>
+      <div style="display:flex;gap:6px;">
+        <button class="sub-tab-btn active" id="stb-book" onclick="setSubTab('book')">📚 독서현황</button>
+        <button class="sub-tab-btn" id="stb-movie" onclick="setSubTab('movie')">🎬 영화즐기기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <button class="add-btn" id="addBtn" onclick="openAddModal()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    <span id="addBtnLabel">책 추가하기</span>
+  </button>
+  <div id="statsRow" class="stats-row"></div>
+  <div id="viewContent"></div>
+</div>
+
+<div class="name-overlay" id="nameOverlay" onclick="handleNameOverlay(event)">
+  <div class="name-modal">
+    <h3>이름 수정</h3>
+    <p>표시될 이름을 입력하세요</p>
+    <input class="name-input" id="nameInput" maxlength="10" onkeydown="if(event.key==='Enter')saveUserName()"/>
+    <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end;">
+      <button class="btn-cancel" onclick="closeNameModal()">취소</button>
+      <button class="btn-save" onclick="saveUserName()">저장</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="bookOverlay" onclick="handleBookOverlay(event)">
+  <div class="modal">
+    <div class="modal-title" id="modalTitle">책 추가</div>
+    <div id="searchSection">
+      <div class="search-row">
+        <input class="search-input" id="searchInput" placeholder="책 제목 또는 저자 검색..."/>
+        <button class="search-btn" onclick="searchBooks()">검색</button>
+      </div>
+      <div id="searchStatus" class="search-status"></div>
+      <div id="searchResults" class="search-results"></div>
+    </div>
+    <div id="selPreview" class="sel-preview" style="display:none"></div>
+    <div class="form-section">
+      <div class="form-section-title">도서 정보</div>
+      <div class="field-row one"><div class="fg"><label>도서명 *</label><input id="fTitle" placeholder="도서명"/></div></div>
+      <div class="field-row">
+        <div class="fg"><label>저자</label><input id="fAuthor" placeholder="저자"/></div>
+        <div class="fg"><label>출판사</label><input id="fPublisher" placeholder="출판사"/></div>
+      </div>
+      <div class="field-row">
+        <div class="fg"><label>출판연도</label><input id="fYear" placeholder="2024"/></div>
+        <div class="fg"><label>책 가격</label><input id="fPrice" placeholder="15,000"/></div>
+      </div>
+    </div>
+    <div class="form-section">
+      <div class="form-section-title">독서 정보</div>
+      <div style="margin-bottom:12px">
+        <label style="font-size:11px;color:var(--ink-mute);display:block;margin-bottom:8px;font-family:var(--font)">읽기 상태</label>
+        <div class="status-group">
+          <button class="status-opt" id="st-done" onclick="setStatus('done')">✅ 완독</button>
+          <button class="status-opt" id="st-reading" onclick="setStatus('reading')">📖 읽는 중</button>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="fg"><label>날짜</label><input type="date" id="fDate"/></div>
+        <div class="fg">
+          <label>별점</label>
+          <div class="stars-row" id="starsRow">
+            <button class="star-btn" onclick="setStar(1)">★</button>
+            <button class="star-btn" onclick="setStar(2)">★</button>
+            <button class="star-btn" onclick="setStar(3)">★</button>
+            <button class="star-btn" onclick="setStar(4)">★</button>
+            <button class="star-btn" onclick="setStar(5)">★</button>
+          </div>
+        </div>
+      </div>
+      <div class="field-row one"><div class="fg"><label>메모</label><textarea id="fMemo" placeholder="한 줄 감상..."></textarea></div></div>
+    </div>
+    <div class="form-section">
+      <div class="form-section-title">분류 태그</div>
+      <div class="tag-group" id="tagGroup">
+        <button class="tag-opt" onclick="toggleTag('buy')">🛒 구매</button>
+        <button class="tag-opt" onclick="toggleTag('library')">🏛 도서관</button>
+        <button class="tag-opt" onclick="toggleTag('review')">✍️ 서평단</button>
+        <button class="tag-opt" onclick="toggleTag('gift')">🎁 선물</button>
+        <button class="tag-opt" onclick="toggleTag('ebook')">📱 전자책</button>
+      </div>
+    </div>
+    <div class="modal-actions" id="modalActions">
+      <button class="btn-cancel" onclick="closeBookModal()">취소</button>
+      <button class="btn-save" onclick="saveRecord()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- 영화 추가/수정 모달 -->
+<div class="overlay" id="movieOverlay" onclick="handleMovieOverlay(event)">
+  <div class="modal">
+    <div class="modal-title" id="movieModalTitle">영화 추가</div>
+    <div id="movieSearchSection">
+      <div class="search-row">
+        <input class="search-input" id="movieSearchInput" placeholder="영화 제목 검색..."/>
+        <button class="search-btn" onclick="searchMovies()">검색</button>
+      </div>
+      <div id="movieSearchStatus" class="search-status"></div>
+      <div id="movieSearchResults" class="search-results"></div>
+    </div>
+    <div id="movieSelPreview" class="sel-preview" style="display:none"></div>
+    <div class="form-section">
+      <div class="form-section-title">영화 정보</div>
+      <div class="field-row one"><div class="fg"><label>제목 *</label><input id="mTitle" placeholder="영화 제목"/></div></div>
+      <div class="field-row">
+        <div class="fg"><label>감독</label><input id="mDirector" placeholder="감독"/></div>
+        <div class="fg"><label>개봉연도</label><input id="mYear" placeholder="2024"/></div>
+      </div>
+      <div class="field-row one"><div class="fg"><label>장르</label><input id="mGenre" placeholder="액션, 드라마 등"/></div></div>
+    </div>
+    <div class="form-section">
+      <div class="form-section-title">관람 정보</div>
+      <div style="margin-bottom:12px">
+        <label style="font-size:11px;color:var(--ink-mute);display:block;margin-bottom:8px;font-family:var(--font)">관람 상태</label>
+        <div class="status-group">
+          <button class="status-opt" id="mst-done" onclick="setMovieStatus('done')">✅ 봤어요</button>
+          <button class="status-opt" id="mst-reading" onclick="setMovieStatus('watching')">🍿 보는 중</button>
+          <button class="status-opt" id="mst-wish" onclick="setMovieStatus('wish')">🔖 보고 싶음</button>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="fg"><label>관람일</label><input type="date" id="mDate"/></div>
+        <div class="fg">
+          <label>별점</label>
+          <div class="stars-row" id="movieStarsRow">
+            <button class="star-btn" onclick="setMovieStar(1)">★</button>
+            <button class="star-btn" onclick="setMovieStar(2)">★</button>
+            <button class="star-btn" onclick="setMovieStar(3)">★</button>
+            <button class="star-btn" onclick="setMovieStar(4)">★</button>
+            <button class="star-btn" onclick="setMovieStar(5)">★</button>
+          </div>
+        </div>
+      </div>
+      <div class="field-row one"><div class="fg"><label>메모</label><textarea id="mMemo" placeholder="한 줄 감상..."></textarea></div></div>
+    </div>
+    <div class="form-section">
+      <div class="form-section-title">관람 방법</div>
+      <div class="tag-group" id="movieTagGroup">
+        <button class="tag-opt" onclick="toggleMovieTag('theater')">🎭 극장</button>
+        <button class="tag-opt" onclick="toggleMovieTag('netflix')">📺 넷플릭스</button>
+        <button class="tag-opt" onclick="toggleMovieTag('watcha')">🎬 왓챠</button>
+        <button class="tag-opt" onclick="toggleMovieTag('wavve')">📡 웨이브</button>
+        <button class="tag-opt" onclick="toggleMovieTag('buy')">💿 소장</button>
+      </div>
+    </div>
+    <div class="modal-actions" id="movieModalActions">
+      <button class="btn-cancel" onclick="closeMovieModal()">취소</button>
+      <button class="btn-save" onclick="saveMovieRecord()">저장</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const KAKAO_KEY='e17c3cb4aa9b805f578ae3f2c8114929';
+const TMDB_KEY=''; // TMDB API 키 (없어도 작동)
+const USERS=['me','son1','son2'];
+const COLORS={
+  me:  {bar:'#9B6B3A',border:'#9B6B3A',dot:'#9B6B3A'},
+  son1:{bar:'#2B5278',border:'#2B5278',dot:'#2B5278'},
+  son2:{bar:'#3D6B4A',border:'#3D6B4A',dot:'#3D6B4A'}
+};
+let currentUser='me',currentView='list';
+let calYear=new Date().getFullYear(),calMonth=new Date().getMonth();
+const TODAY=new Date();
+let searchResults=[],selectedBook=null;
+let currentStar=0,currentStatus='',currentTags=new Set(),editingId=null,editingUser=null,nameEditingUser=null;
+const defaultNames={me:'나',son1:'아들1',son2:'아들2'};
+let userNames=JSON.parse(localStorage.getItem('fam_names')||'null')||{...defaultNames};
+
+// 영화 전용 상태
+let movieSearchResults=[],selectedMovie=null;
+let movieStar=0,movieStatus='',movieTags=new Set(),editingMovieId=null,editingMovieUser=null;
+let currentSubTab='book'; // 'book' | 'movie' (우리가족 탭에서만 사용)
+
+function getData(){return JSON.parse(localStorage.getItem('fam_books_v3')||'{}');}
+function setData(d){localStorage.setItem('fam_books_v3',JSON.stringify(d));}
+function getRecs(u){return getData()[u||currentUser]||[];}
+function saveRecs(u,recs){const d=getData();d[u||currentUser]=recs;setData(d);}
+function getMovies(u){return JSON.parse(localStorage.getItem('fam_movies_v1')||'{}')[u||currentUser]||[];}
+function saveMovies(u,recs){const d=JSON.parse(localStorage.getItem('fam_movies_v1')||'{}');d[u||currentUser]=recs;localStorage.setItem('fam_movies_v1',JSON.stringify(d));}
+
+function renderUserBar(){
+  const row=document.getElementById('userRow');
+  let html=USERS.map(k=>`
+    <div style="display:flex;align-items:center;border-bottom:2px solid ${currentUser===k?'var(--wood)':'transparent'};margin-bottom:-1px;">
+      <button class="user-btn${currentUser===k?' active':''}" onclick="setUser('${k}')">${userNames[k]}</button>
+      <button class="edit-name-btn" onclick="openNameModal('${k}')">✎</button>
+    </div>`).join('');
+  html+=`<button class="all-btn${currentUser==='all'?' active':''}" onclick="setUser('all')">가족책영화현황</button>`;
+  row.innerHTML=html;
+}
+
+function setUser(u){
+  currentUser=u;
+  renderUserBar();
+  const isAll=(u==='all');
+  document.getElementById('normalNavRow').style.display=isAll?'none':'flex';
+  document.getElementById('familyNavRow').style.display=isAll?'flex':'none';
+  if(isAll){
+    // 가족탭: 리스트/월별 active 상태 반영
+    document.getElementById('fnb-list').classList.toggle('active',currentView==='list');
+    document.getElementById('fnb-month').classList.toggle('active',currentView==='month');
+  }
+  document.getElementById('addBtnLabel').textContent=
+    (isAll && currentSubTab==='movie')?'영화 추가하기':'책 추가하기';
+  render();
+}
+function setView(v){
+  currentView=v;
+  // 일반 탭
+  ['nb-list','nb-month'].forEach((id,i)=>document.getElementById(id)?.classList.toggle('active',i===(v==='list'?0:1)));
+  // 가족 탭
+  ['fnb-list','fnb-month'].forEach((id,i)=>document.getElementById(id)?.classList.toggle('active',i===(v==='list'?0:1)));
+  if(currentUser!=='all') document.getElementById('addBtnLabel').textContent='책 추가하기';
+  render();
+}
+function setSubTab(t){
+  currentSubTab=t;
+  document.getElementById('stb-book').classList.toggle('active',t==='book');
+  document.getElementById('stb-movie').classList.toggle('active',t==='movie');
+  document.getElementById('addBtnLabel').textContent=t==='movie'?'영화 추가하기':'책 추가하기';
+  render();
+}
+function openNameModal(k){nameEditingUser=k;document.getElementById('nameInput').value=userNames[k];document.getElementById('nameOverlay').classList.add('open');setTimeout(()=>document.getElementById('nameInput').focus(),50);}
+function closeNameModal(){document.getElementById('nameOverlay').classList.remove('open');nameEditingUser=null;}
+function handleNameOverlay(e){if(e.target===document.getElementById('nameOverlay'))closeNameModal();}
+function saveUserName(){const v=document.getElementById('nameInput').value.trim();if(!v)return;userNames[nameEditingUser]=v;localStorage.setItem('fam_names',JSON.stringify(userNames));closeNameModal();renderUserBar();render();}
+
+function render(){
+  // 우리가족+영화 탭
+  if(currentUser==='all' && currentSubTab==='movie'){
+    renderStats();
+    renderMovieListAll();
+    return;
+  }
+  renderStats();
+  if(currentView==='list')renderList();
+  else renderMonth();
+}
+
+function renderStats(){
+  let recs=currentUser==='all'?USERS.flatMap(u=>getRecs(u)):getRecs();
+  const done=recs.filter(r=>r.status==='done').length;
+  const reading=recs.filter(r=>r.status==='reading').length;
+  document.getElementById('statsRow').innerHTML=`
+    <div class="stat-card"><div class="stat-num" style="color:var(--wood-deep)">${recs.length}</div><div class="stat-label">전체</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--green)">${done}</div><div class="stat-label">완독</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--blue)">${reading}</div><div class="stat-label">읽는 중</div></div>`;
+}
+
+function renderList(){
+  const el=document.getElementById('viewContent');
+  if(currentUser==='all'){
+    // 가족책영화현황 - 리스트: 월별 구분선 + 간결 표시
+    const d=getData();
+    const allRecs=USERS.flatMap(u=>(d[u]||[]).filter(r=>r.status!=='wish').map(r=>({...r,_u:u})))
+      .sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+    if(!allRecs.length){el.innerHTML=`<div class="empty"><div class="empty-icon">📚</div><div>기록이 없어요</div></div>`;return;}
+    // 월별 그룹
+    const byMonth={};
+    allRecs.forEach(r=>{
+      const ym=r.date?r.date.slice(0,7):'기타';
+      if(!byMonth[ym])byMonth[ym]=[];
+      byMonth[ym].push(r);
+    });
+    const chartHtml=renderFamilyChart();
+    const listHtml=Object.keys(byMonth).sort((a,b)=>b.localeCompare(a)).map(ym=>{
+      const [y,m]=ym.split('-');
+      const label=ym==='기타'?'날짜 미정':`${y}년 ${parseInt(m)}월`;
+      return `<div style="margin-bottom:20px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+          <div style="font-size:13px;font-weight:700;color:var(--wood-deep);white-space:nowrap">${label}</div>
+          <div style="flex:1;height:1px;background:var(--border)"></div>
+          <div style="font-size:11px;color:var(--ink-faint)">${byMonth[ym].length}권</div>
+        </div>
+        ${byMonth[ym].map(r=>renderItemCompact(r,r._u)).join('')}
+      </div>`;
+    }).join('');
+    el.innerHTML=chartHtml+listHtml;return;
+  }
+  // 개인탭 - 리스트: 월별 구분선
+  const recs=getRecs().filter(r=>r.status!=='wish').sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+  if(!recs.length){el.innerHTML=`<div class="empty"><div class="empty-icon">📚</div><div>아직 기록이 없어요<br><span style="font-size:12px;color:var(--wood)">책을 추가해 보세요!</span></div></div>`;return;}
+  const byMonth={};
+  recs.forEach(r=>{const ym=r.date?r.date.slice(0,7):'기타';if(!byMonth[ym])byMonth[ym]=[];byMonth[ym].push(r);});
+  el.innerHTML=Object.keys(byMonth).sort((a,b)=>b.localeCompare(a)).map(ym=>{
+    const [y,m]=ym.split('-');
+    const label=ym==='기타'?'날짜 미정':`${y}년 ${parseInt(m)}월`;
+    return `<div style="margin-bottom:20px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <div style="font-size:13px;font-weight:700;color:var(--wood-deep);white-space:nowrap">${label}</div>
+        <div style="flex:1;height:1px;background:var(--border)"></div>
+        <div style="font-size:11px;color:var(--ink-faint)">${byMonth[ym].length}권</div>
+      </div>
+      ${byMonth[ym].map(r=>renderItem(r)).join('')}
+    </div>`;
+  }).join('');
+}
+
+// 가족현황 차트 (공통)
+function renderFamilyChart(){
+  const d=getData();
+  const counts=USERS.map(u=>({u,recs:(d[u]||[]).filter(r=>r.status!=='wish')}));
+  const maxC=Math.max(...counts.map(c=>c.recs.length),1);
+  return `<div class="chart-card" style="margin-bottom:16px">
+    <div class="chart-title" style="margin-bottom:12px">📊 독서 현황</div>
+    ${counts.map(({u,recs})=>{
+      const done=recs.filter(r=>r.status==='done').length;
+      const reading=recs.filter(r=>r.status==='reading').length;
+      return `<div class="chart-row">
+        <div class="chart-label">${userNames[u]}</div>
+        <div class="chart-bar-wrap"><div class="chart-bar" style="width:${Math.round(recs.length/maxC*100)}%;background:${COLORS[u].bar}">${recs.length>0?`<span>${recs.length}권</span>`:''}</div></div>
+        <div class="chart-badges">
+          ${done>0?`<span class="chart-badge" style="background:var(--green-soft);color:var(--green)">완독 ${done}</span>`:''}
+          ${reading>0?`<span class="chart-badge" style="background:var(--blue-soft);color:var(--blue)">읽중 ${reading}</span>`:''}
+        </div>
+      </div>`;}).join('')}
+  </div>`;
+}
+
+// 간결한 아이템 (가족현황용)
+function renderItemCompact(r,u){
+  const stars=r.star?'★'.repeat(r.star):'';
+  const dot=`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${COLORS[u]?.dot||'#999'};margin-right:5px;vertical-align:middle"></span>`;
+  const statusBadge=r.status?`<span class="badge badge-${r.status}">${{done:'완독',reading:'읽는 중'}[r.status]||''}</span>`:'';
+  return `<div class="list-item" style="padding:10px" onclick="openEditModal(${r.id},'${u}')">
+    ${r.thumbnail?`<img class="list-cover" src="${r.thumbnail}" alt="${r.title}" loading="lazy" style="width:40px;height:58px">`:`<div class="list-cover-ph" style="width:40px;height:58px;font-size:16px">📖</div>`}
+    <div class="list-body">
+      <div class="list-title" style="font-size:13px">${dot}${r.title}</div>
+      <div class="list-author" style="font-size:11px">${r.author||''}</div>
+      <div class="list-meta">${statusBadge}${stars?`<span class="list-stars" style="font-size:11px">${stars}</span>`:''}${r.date?`<span class="list-date">${r.date}</span>`:''}</div>
+    </div>
+  </div>`;
+}
+
+function renderItem(r,forUser){
+  const stars=r.star?'★'.repeat(r.star)+'☆'.repeat(5-r.star):'';
+  const tagMap={library:'🏛 도서관',review:'✍️ 서평단',gift:'🎁 선물',buy:'🛒 구매',ebook:'📱 전자책'};
+  const tags=(r.tags||[]).map(t=>`<span class="badge" style="background:var(--beige-deep);color:var(--ink-mute)">${tagMap[t]||t}</span>`).join('');
+  const statusBadge=r.status?`<span class="badge badge-${r.status}">${{done:'✅ 완독',reading:'📖 읽는 중',wish:'🔖 읽고 싶음'}[r.status]}</span>`:'';
+  const u=forUser||currentUser;
+  return `<div class="list-item" onclick="openEditModal(${r.id},'${u}')">
+    ${r.thumbnail?`<img class="list-cover" src="${r.thumbnail}" alt="${r.title}" loading="lazy">`:`<div class="list-cover-ph">📖</div>`}
+    <div class="list-body">
+      <div class="list-title">${r.title}</div>
+      <div class="list-author">${r.author||''}${r.publisher?' · '+r.publisher:''}</div>
+      <div class="list-meta">${statusBadge}${stars?`<span class="list-stars">${stars}</span>`:''}${r.date?`<span class="list-date">${r.date}</span>`:''}${r.price?`<span class="list-price">₩${r.price}</span>`:''}${tags}</div>
+      ${r.memo?`<div class="list-memo">${r.memo}</div>`:''}
+    </div>
+  </div>`;
+}
+
+function renderMonth(){
+  const el=document.getElementById('viewContent');
+  const ym=`${calYear}-${String(calMonth+1).padStart(2,'0')}`;
+  const d=getData();
+
+  // 달력에 표시할 데이터 (개인: 본인만 / 가족: 전체)
+  const calRecs = currentUser==='all'
+    ? USERS.flatMap(u=>getRecs(u))
+    : getRecs();
+
+  const byDay={};
+  calRecs.forEach(r=>{if(r.date&&r.date.startsWith(ym)){const day=parseInt(r.date.split('-')[2]);if(!byDay[day])byDay[day]=[];byDay[day].push(r);}});
+
+  const firstDay=new Date(calYear,calMonth,1).getDay();
+  const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+  const fixedHolidays={'01-01':'신정','03-01':'삼일절','05-05':'어린이날','06-06':'현충일','08-15':'광복절','10-03':'개천절','10-09':'한글날','12-25':'크리스마스'};
+  const lunarHolidays={2024:['02-09','02-10','02-11','02-12','05-15','09-16','09-17','09-18'],2025:['01-28','01-29','01-30','05-06','10-05','10-06','10-07'],2026:['02-17','02-18','02-19','05-25','09-24','09-25','09-26'],2027:['02-06','02-07','02-08','05-14','10-14','10-15','10-16']};
+  const lunarSet=new Set(lunarHolidays[calYear]||[]);
+  function isHoliday(m,d){const key=`${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;return fixedHolidays[key]||lunarSet.has(key);}
+
+  const heads=[{label:'일',cls:'sun'},{label:'월',cls:''},{label:'화',cls:''},{label:'수',cls:''},{label:'목',cls:''},{label:'금',cls:''},{label:'토',cls:'sat'}];
+  let calCells=heads.map(h=>`<div class="cal-head-cell ${h.cls}">${h.label}</div>`).join('');
+  let gridCells='';
+  for(let i=0;i<firstDay;i++)gridCells+=`<div class="cal-cell empty"></div>`;
+  for(let day=1;day<=daysInMonth;day++){
+    const isToday=TODAY.getFullYear()===calYear&&TODAY.getMonth()===calMonth&&TODAY.getDate()===day;
+    const books=byDay[day]||[];
+    const covers=books.slice(0,3).map(b=>b.thumbnail?`<img class="day-thumb" src="${b.thumbnail}" loading="lazy">`:`<div class="day-thumb-ph">📖</div>`).join('');
+    const dow=new Date(calYear,calMonth,day).getDay();
+    const hol=isHoliday(calMonth+1,day);
+    let numCls='day-num';
+    if(hol||dow===0)numCls='day-num hol-num';
+    else if(dow===6)numCls='day-num sat-num';
+    gridCells+=`<div class="cal-cell${isToday?' today':''}"><div class="${numCls}">${day}${hol?'🔴':''}</div><div class="day-covers">${covers}</div></div>`;
+  }
+
+  const calWrap=`<div class="cal-wrap"><div class="cal-head-row">${calCells}</div><div class="cal-grid">${gridCells}</div></div>`;
+  const monthNav=`<div class="month-nav"><button class="month-arrow" onclick="changeMonth(-1)">‹</button><div class="month-title">${calYear}년 ${calMonth+1}월</div><button class="month-arrow" onclick="changeMonth(1)">›</button></div>`;
+
+  if(currentUser==='all'){
+    // 가족탭 월별: 차트 + 달력 + 사람별 섹션
+    const chartHtml=renderFamilyChart();
+    let monthList='';let hasAny=false;
+    USERS.forEach(u=>{
+      const secRecs=(d[u]||[]).filter(r=>r.date&&r.date.startsWith(ym)).sort((a,b)=>a.date.localeCompare(b.date));
+      if(!secRecs.length)return;
+      hasAny=true;
+      monthList+=`<div class="month-section">
+        <div class="section-head" style="border-bottom:2px solid ${COLORS[u].border}">
+          <div class="section-dot" style="background:${COLORS[u].dot}"></div>
+          <span class="section-name">${userNames[u]}</span>
+          <span class="section-count">${secRecs.length}권</span>
+        </div>
+        ${secRecs.map(r=>renderItemCompact(r,u)).join('')}
+      </div>`;
+    });
+    if(!hasAny)monthList=`<div class="empty"><div class="empty-icon">📅</div><div>이 달의 기록이 없어요</div></div>`;
+    el.innerHTML=monthNav+chartHtml+calWrap+monthList;
+  } else {
+    // 개인탭 월별: 달력(본인책) + 본인 책만 날짜별
+    const myRecs=getRecs().filter(r=>r.date&&r.date.startsWith(ym)).sort((a,b)=>a.date.localeCompare(b.date));
+    const grouped={};
+    myRecs.forEach(r=>{if(!grouped[r.date])grouped[r.date]=[];grouped[r.date].push(r);});
+    let monthList=Object.keys(grouped).sort().map(date=>{
+      const dayN=parseInt(date.split('-')[2]);
+      return `<div style="margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <div style="font-size:12px;font-weight:700;color:var(--wood-deep)">${dayN}일</div>
+          <div style="flex:1;height:1px;background:var(--border-light)"></div>
+        </div>
+        ${grouped[date].map(r=>renderItem(r)).join('')}
+      </div>`;
+    }).join('');
+    if(!myRecs.length)monthList=`<div class="empty"><div class="empty-icon">📅</div><div>이 달의 기록이 없어요</div></div>`;
+    el.innerHTML=monthNav+calWrap+monthList;
+  }
+}
+
+function changeMonth(d){calMonth+=d;if(calMonth>11){calMonth=0;calYear++;}if(calMonth<0){calMonth=11;calYear--;}renderMonth();}
+
+function resetForm(){
+  selectedBook=null;currentStar=0;currentStatus='';currentTags=new Set();editingId=null;editingUser=null;
+  document.getElementById('searchInput').value='';
+  document.getElementById('searchStatus').textContent='';
+  document.getElementById('searchResults').innerHTML='';
+  document.getElementById('selPreview').style.display='none';
+  ['fTitle','fAuthor','fPublisher','fYear','fPrice','fMemo'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fDate').value=new Date().toISOString().split('T')[0];
+  updateStars();updateStatusBtns();updateTagBtns();
+}
+
+function openAddModal(){
+  if(currentUser==='all' && currentSubTab==='movie'){openMovieModal();return;}
+  if(currentSubTab==='movie'){openMovieModal();return;}
+  resetForm();
+  document.getElementById('modalTitle').textContent=`책 추가 — ${currentUser==='all'?'':userNames[currentUser]}`;
+  document.getElementById('modalActions').innerHTML=`<button class="btn-cancel" onclick="closeBookModal()">취소</button><button class="btn-save" onclick="saveRecord()">저장</button>`;
+  document.getElementById('bookOverlay').classList.add('open');
+}
+
+/* ── 영화 모달 ── */
+function resetMovieForm(){
+  selectedMovie=null;movieStar=0;movieStatus='';movieTags=new Set();editingMovieId=null;editingMovieUser=null;
+  document.getElementById('movieSearchInput').value='';
+  document.getElementById('movieSearchStatus').textContent='';
+  document.getElementById('movieSearchResults').innerHTML='';
+  document.getElementById('movieSelPreview').style.display='none';
+  ['mTitle','mDirector','mYear','mGenre','mMemo'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('mDate').value=new Date().toISOString().split('T')[0];
+  updateMovieStars();updateMovieStatusBtns();updateMovieTagBtns();
+}
+function openMovieModal(){
+  resetMovieForm();
+  document.getElementById('movieModalTitle').textContent=`영화 추가 — ${currentUser==='all'?'':userNames[currentUser]}`;
+  document.getElementById('movieModalActions').innerHTML=`<button class="btn-cancel" onclick="closeMovieModal()">취소</button><button class="btn-save" onclick="saveMovieRecord()">저장</button>`;
+  document.getElementById('movieOverlay').classList.add('open');
+}
+function openEditMovieModal(id,u){
+  const targetUser=u||currentUser;
+  const r=getMovies(targetUser).find(x=>x.id===id);
+  if(!r)return;
+  resetMovieForm();
+  editingMovieId=id;editingMovieUser=targetUser;
+  selectedMovie={poster:r.poster||''};
+  document.getElementById('movieModalTitle').textContent='영화 수정';
+  document.getElementById('mTitle').value=r.title||'';
+  document.getElementById('mDirector').value=r.director||'';
+  document.getElementById('mYear').value=r.year||'';
+  document.getElementById('mGenre').value=r.genre||'';
+  document.getElementById('mDate').value=r.date||'';
+  document.getElementById('mMemo').value=r.memo||'';
+  movieStar=r.star||0;movieStatus=r.status||'';movieTags=new Set(r.tags||[]);
+  if(r.poster){const p=document.getElementById('movieSelPreview');p.style.display='flex';p.innerHTML=`<img src="${r.poster}" alt="${r.title}" style="width:48px;height:72px;object-fit:cover;border-radius:4px;flex-shrink:0"><div class="sel-preview-info"><h3>${r.title}</h3><p>${r.director||''} ${r.year?'· '+r.year:''}</p></div>`;}
+  updateMovieStars();updateMovieStatusBtns();updateMovieTagBtns();
+  document.getElementById('movieModalActions').innerHTML=`<button class="btn-cancel" onclick="closeMovieModal()">취소</button><button class="btn-save" onclick="saveMovieRecord()">저장</button>`;
+  document.getElementById('movieOverlay').classList.add('open');
+}
+function closeMovieModal(){document.getElementById('movieOverlay').classList.remove('open');}
+function handleMovieOverlay(e){if(e.target===document.getElementById('movieOverlay'))closeMovieModal();}
+function setMovieStar(n){movieStar=n;updateMovieStars();}
+function updateMovieStars(){document.querySelectorAll('#movieStarsRow .star-btn').forEach((b,i)=>b.classList.toggle('on',i<movieStar));}
+function setMovieStatus(s){movieStatus=s;updateMovieStatusBtns();}
+function updateMovieStatusBtns(){
+  [['mst-done','done'],['mst-reading','watching'],['mst-wish','wish']].forEach(([id,s])=>{
+    const b=document.getElementById(id);if(!b)return;
+    b.className='status-opt';
+    if(movieStatus===s)b.classList.add(s==='done'?'on-done':s==='watching'?'on-reading':'on-wish');
+  });
+}
+function toggleMovieTag(t){movieTags.has(t)?movieTags.delete(t):movieTags.add(t);updateMovieTagBtns();}
+function updateMovieTagBtns(){const keys=['theater','netflix','watcha','wavve','buy'];document.querySelectorAll('#movieTagGroup .tag-opt').forEach((b,i)=>b.classList.toggle('on',movieTags.has(keys[i])));}
+
+function saveMovieRecord(){
+  const title=document.getElementById('mTitle').value.trim();
+  if(!title){alert('영화 제목을 입력해 주세요.');return;}
+  const targetUser=editingMovieUser||(currentUser==='all'?'me':currentUser);
+  const recs=getMovies(targetUser);
+  const rec={
+    id:editingMovieId||Date.now(),title,
+    director:document.getElementById('mDirector').value.trim(),
+    year:document.getElementById('mYear').value.trim(),
+    genre:document.getElementById('mGenre').value.trim(),
+    date:document.getElementById('mDate').value,
+    memo:document.getElementById('mMemo').value.trim(),
+    star:movieStar,status:movieStatus,tags:[...movieTags],
+    poster:selectedMovie?.poster||''
+  };
+  if(editingMovieId){const i=recs.findIndex(x=>x.id===editingMovieId);if(i!==-1)recs[i]=rec;}
+  else recs.unshift(rec);
+  saveMovies(targetUser,recs);closeMovieModal();render();
+}
+
+/* ── 영화 검색 (TMDB) ── */
+async function searchMovies(){
+  const q=document.getElementById('movieSearchInput').value.trim();
+  if(!q)return;
+  const msg=document.getElementById('movieSearchStatus');
+  const list=document.getElementById('movieSearchResults');
+  msg.textContent='검색 중...';list.innerHTML='';
+  selectedMovie=null;document.getElementById('movieSelPreview').style.display='none';
+
+  // 1차: 한국어로 검색
+  const trySearch=async(lang)=>{
+    const url=`https://api.themoviedb.org/3/search/movie?api_key=4b9a892b5e53ecab6d8ade0ca4cb7d86&query=${encodeURIComponent(q)}&language=${lang}&include_adult=false&page=1`;
+    const res=await fetch(url);
+    if(!res.ok)throw new Error(res.status);
+    const data=await res.json();
+    return data.results||[];
+  };
+
+  try{
+    let results=await trySearch('ko-KR');
+    // 한국어 결과 없으면 영어로 재시도
+    if(!results.length) results=await trySearch('en-US');
+
+    movieSearchResults=results;
+    if(!results.length){msg.textContent='검색 결과가 없습니다. 제목을 직접 입력해 주세요.';return;}
+    msg.textContent=`${results.length}편 검색됨 — 선택하세요`;
+    list.innerHTML=results.slice(0,10).map((m,i)=>{
+      const poster=m.poster_path?`https://image.tmdb.org/t/p/w92${m.poster_path}`:'';
+      const year=m.release_date?m.release_date.slice(0,4):'';
+      const title=m.title||m.original_title||'';
+      return `<div class="search-item" id="mi${i}" onclick="selectMovieItem(${i})">
+        ${poster
+          ?`<img class="s-thumb" src="${poster}" loading="lazy" onerror="this.outerHTML='<div class=s-thumb-ph>🎬</div>'">`
+          :`<div class="s-thumb-ph">🎬</div>`}
+        <div class="s-info">
+          <h4>${title}</h4>
+          <p>${m.original_title||''}${year?' · '+year:''}</p>
+          ${m.vote_average?`<p>⭐ ${m.vote_average.toFixed(1)}</p>`:''}
+        </div>
+      </div>`;
+    }).join('');
+  }catch(e){
+    // API 키 오류 시 안내 메시지
+    msg.textContent='검색 오류가 발생했습니다. 제목·감독·연도를 직접 입력해 주세요.';
+    console.error('영화 검색 오류:',e);
+  }
+}
+
+function selectMovieItem(i){
+  document.querySelectorAll('.search-item').forEach(el=>el.classList.remove('sel'));
+  document.getElementById('mi'+i)?.classList.add('sel');
+  const m=movieSearchResults[i];
+  const title=m.title||m.original_title||'';
+  const year=m.release_date?m.release_date.slice(0,4):'';
+  const poster=m.poster_path?`https://image.tmdb.org/t/p/w185${m.poster_path}`:'';
+  selectedMovie={poster};
+  document.getElementById('mTitle').value=title;
+  document.getElementById('mYear').value=year;
+  if(m.genre_ids?.length){
+    const genres={28:'액션',12:'모험',16:'애니메이션',35:'코미디',80:'범죄',18:'드라마',14:'판타지',27:'공포',10749:'로맨스',878:'SF',53:'스릴러',10752:'전쟁',37:'서부',99:'다큐멘터리',10770:'TV 영화',36:'역사',10402:'음악',9648:'미스터리'};
+    document.getElementById('mGenre').value=m.genre_ids.slice(0,3).map(id=>genres[id]||'').filter(Boolean).join(', ');
+  }
+  const p=document.getElementById('movieSelPreview');p.style.display='flex';
+  p.innerHTML=`${poster
+    ?`<img src="${poster}" alt="${title}" style="width:48px;height:72px;object-fit:cover;border-radius:4px;flex-shrink:0;box-shadow:var(--shadow-sm)">`
+    :`<div class="no-img" style="width:48px;height:72px;border-radius:4px;background:var(--beige-deep);display:flex;align-items:center;justify-content:center;font-size:22px">🎬</div>`}
+  <div class="sel-preview-info"><h3>${title}</h3><p>${m.original_title||''}${year?' · '+year:''}</p>${m.overview?`<p style="font-size:11px;color:var(--ink-faint);margin-top:3px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">${m.overview}</p>`:''}</div>`;
+}
+
+/* ── 영화 전체가족 렌더 ── */
+function renderMovieListAll(){
+  const el=document.getElementById('viewContent');
+  const statusLabel={done:'✅ 봤어요',watching:'🍿 보는 중',wish:'🔖 보고 싶음'};
+  const statusBadgeCls={done:'badge-done',watching:'badge-reading',wish:'badge-wish'};
+  const tagMap={theater:'🎭 극장',netflix:'📺 넷플릭스',watcha:'🎬 왓챠',wavve:'📡 웨이브',buy:'💿 소장'};
+
+  function renderMovieItem(r,u){
+    const stars=r.star?'★'.repeat(r.star)+'☆'.repeat(5-r.star):'';
+    const tags=(r.tags||[]).map(t=>`<span class="badge" style="background:var(--beige-deep);color:var(--ink-mute)">${tagMap[t]||t}</span>`).join('');
+    const statusBadge=r.status?`<span class="badge ${statusBadgeCls[r.status]||''}">${statusLabel[r.status]||r.status}</span>`:'';
+    return `<div class="list-item" onclick="openEditMovieModal(${r.id},'${u}')">
+      ${r.poster?`<img class="list-cover" src="${r.poster}" alt="${r.title}" loading="lazy">`:`<div class="list-cover-ph">🎬</div>`}
+      <div class="list-body">
+        <div class="list-title">${r.title}</div>
+        <div class="list-author">${r.director||''}${r.year?' · '+r.year:''}${r.genre?' · '+r.genre:''}</div>
+        <div class="list-meta">${statusBadge}${stars?`<span class="list-stars">${stars}</span>`:''}${r.date?`<span class="list-date">${r.date}</span>`:''}${tags}</div>
+        ${r.memo?`<div class="list-memo">${r.memo}</div>`:''}
+      </div>
+    </div>`;
+  }
+
+  const allMovies=USERS.flatMap(u=>getMovies(u).map(m=>({...m,_u:u})));
+
+  if(currentView==='list'){
+    // 리스트: 관람현황 없이, 월별 구분선
+    const sorted=allMovies.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+    if(!sorted.length){el.innerHTML=`<div class="empty"><div class="empty-icon">🎬</div><div>아직 영화 기록이 없어요<br><span style="font-size:12px;color:var(--wood)">영화를 추가해 보세요!</span></div></div>`;return;}
+    const byMonth={};
+    sorted.forEach(r=>{const ym=r.date?r.date.slice(0,7):'기타';if(!byMonth[ym])byMonth[ym]=[];byMonth[ym].push(r);});
+    el.innerHTML=Object.keys(byMonth).sort((a,b)=>b.localeCompare(a)).map(ym=>{
+      const [y,m]=ym.split('-');
+      const label=ym==='기타'?'날짜 미정':`${y}.${m}`;
+      return `<div style="margin-bottom:20px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+          <div style="font-size:13px;font-weight:700;color:var(--wood-deep);white-space:nowrap">${label}</div>
+          <div style="flex:1;height:1px;background:var(--border)"></div>
+          <div style="font-size:11px;color:var(--ink-faint)">${byMonth[ym].length}편</div>
+        </div>
+        ${byMonth[ym].map(r=>renderMovieItem(r,r._u)).join('')}
+      </div>`;
+    }).join('');
+
+  } else {
+    // 월별: 달력 + 날짜별 구분선
+    const ym=`${calYear}-${String(calMonth+1).padStart(2,'0')}`;
+    const byDay={};
+    allMovies.forEach(r=>{
+      if(r.date&&r.date.startsWith(ym)){
+        const day=parseInt(r.date.split('-')[2]);
+        if(!byDay[day])byDay[day]=[];
+        byDay[day].push(r);
+      }
+    });
+    const firstDay=new Date(calYear,calMonth,1).getDay();
+    const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+    const heads=[{label:'일',cls:'sun'},{label:'월',cls:''},{label:'화',cls:''},{label:'수',cls:''},{label:'목',cls:''},{label:'금',cls:''},{label:'토',cls:'sat'}];
+    let calCells=heads.map(h=>`<div class="cal-head-cell ${h.cls}">${h.label}</div>`).join('');
+    let gridCells='';
+    for(let i=0;i<firstDay;i++)gridCells+=`<div class="cal-cell empty"></div>`;
+    for(let day=1;day<=daysInMonth;day++){
+      const isToday=TODAY.getFullYear()===calYear&&TODAY.getMonth()===calMonth&&TODAY.getDate()===day;
+      const movies=byDay[day]||[];
+      const covers=movies.slice(0,3).map(m=>m.poster?`<img class="day-thumb" src="${m.poster}" loading="lazy">`:`<div class="day-thumb-ph">🎬</div>`).join('');
+      gridCells+=`<div class="cal-cell${isToday?' today':''}"><div class="day-num">${day}</div><div class="day-covers">${covers}</div></div>`;
+    }
+    const monthMovies=allMovies.filter(r=>r.date&&r.date.startsWith(ym)).sort((a,b)=>a.date.localeCompare(b.date));
+    const grouped={};
+    monthMovies.forEach(r=>{if(!grouped[r.date])grouped[r.date]=[];grouped[r.date].push(r);});
+    let monthList=Object.keys(grouped).sort().map(date=>{
+      const dayN=parseInt(date.split('-')[2]);
+      return `<div style="margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <div style="font-size:12px;font-weight:700;color:var(--wood-deep)">${dayN}일</div>
+          <div style="flex:1;height:1px;background:var(--border-light)"></div>
+        </div>
+        ${grouped[date].map(r=>renderMovieItem(r,r._u)).join('')}
+      </div>`;
+    }).join('');
+    if(!monthMovies.length)monthList=`<div class="empty"><div class="empty-icon">🎬</div><div>이 달의 영화 기록이 없어요</div></div>`;
+    el.innerHTML=`
+      <div class="month-nav">
+        <button class="month-arrow" onclick="changeMonth(-1)">‹</button>
+        <div class="month-title">${calYear}년 ${calMonth+1}월</div>
+        <button class="month-arrow" onclick="changeMonth(1)">›</button>
+      </div>
+      <div class="cal-wrap">
+        <div class="cal-head-row">${calCells}</div>
+        <div class="cal-grid">${gridCells}</div>
+      </div>
+      ${monthList}`;
+  }
+}
+function openEditModal(id,u){
+  const targetUser=u||currentUser;
+  const r=getRecs(targetUser).find(x=>x.id===id);
+  if(!r)return;
+  resetForm();
+  editingId=id;editingUser=targetUser;
+  selectedBook={thumbnail:r.thumbnail||''};
+  document.getElementById('modalTitle').textContent='기록 수정';
+  document.getElementById('fTitle').value=r.title||'';
+  document.getElementById('fAuthor').value=r.author||'';
+  document.getElementById('fPublisher').value=r.publisher||'';
+  document.getElementById('fYear').value=r.year||'';
+  document.getElementById('fPrice').value=r.price||'';
+  document.getElementById('fDate').value=r.date||'';
+  document.getElementById('fMemo').value=r.memo||'';
+  currentStar=r.star||0;currentStatus=r.status||'';currentTags=new Set(r.tags||[]);
+  if(r.thumbnail){const p=document.getElementById('selPreview');p.style.display='flex';p.innerHTML=`<img src="${r.thumbnail}" alt="${r.title}"><div class="sel-preview-info"><h3>${r.title}</h3><p>${r.author||''}</p></div>`;}
+  updateStars();updateStatusBtns();updateTagBtns();
+  document.getElementById('modalActions').innerHTML=`<button class="btn-cancel" onclick="closeBookModal()">취소</button><button class="btn-save" onclick="saveRecord()">저장</button>`;
+  document.getElementById('bookOverlay').classList.add('open');
+}
+
+function closeBookModal(){document.getElementById('bookOverlay').classList.remove('open');}
+function handleBookOverlay(e){if(e.target===document.getElementById('bookOverlay'))closeBookModal();}
+function setStar(n){currentStar=n;updateStars();}
+function updateStars(){document.querySelectorAll('#starsRow .star-btn').forEach((b,i)=>b.classList.toggle('on',i<currentStar));}
+function setStatus(s){currentStatus=s;updateStatusBtns();}
+function updateStatusBtns(){['done','reading'].forEach(s=>{const b=document.getElementById('st-'+s);if(b){b.className='status-opt';if(currentStatus===s)b.classList.add('on-'+s);}});}
+function toggleTag(t){currentTags.has(t)?currentTags.delete(t):currentTags.add(t);updateTagBtns();}
+function updateTagBtns(){const keys=['buy','library','review','gift','ebook'];document.querySelectorAll('#tagGroup .tag-opt').forEach((b,i)=>b.classList.toggle('on',currentTags.has(keys[i])));}
+
+function saveRecord(){
+  const title=document.getElementById('fTitle').value.trim();
+  if(!title){alert('도서명을 입력해 주세요.');return;}
+  const targetUser=editingUser||(currentUser==='all'?'me':currentUser);
+  const recs=getRecs(targetUser);
+  const rec={id:editingId||Date.now(),title,author:document.getElementById('fAuthor').value.trim(),publisher:document.getElementById('fPublisher').value.trim(),year:document.getElementById('fYear').value.trim(),price:document.getElementById('fPrice').value.trim(),date:document.getElementById('fDate').value,memo:document.getElementById('fMemo').value.trim(),star:currentStar,status:currentStatus,tags:[...currentTags],thumbnail:selectedBook?.thumbnail||''};
+  if(editingId){const i=recs.findIndex(x=>x.id===editingId);if(i!==-1)recs[i]=rec;}
+  else recs.unshift(rec);
+  saveRecs(targetUser,recs);closeBookModal();render();
+}
+
+async function searchBooks(){
+  const q=document.getElementById('searchInput').value.trim();
+  if(!q)return;
+  const msg=document.getElementById('searchStatus');
+  const list=document.getElementById('searchResults');
+  msg.textContent='검색 중...';list.innerHTML='';
+  selectedBook=null;document.getElementById('selPreview').style.display='none';
+  try{
+    const res=await fetch(`https://dapi.kakao.com/v3/search/book?query=${encodeURIComponent(q)}&size=10`,{headers:{'Authorization':`KakaoAK ${KAKAO_KEY}`}});
+    if(!res.ok)throw new Error(res.status);
+    const data=await res.json();
+    searchResults=data.documents||[];
+    if(!searchResults.length){msg.textContent='검색 결과가 없습니다.';return;}
+    msg.textContent=`${searchResults.length}권 검색됨 — 선택하세요`;
+    list.innerHTML=searchResults.map((b,i)=>`
+      <div class="search-item" id="si${i}" onclick="selectBook(${i})">
+        ${b.thumbnail?`<img class="s-thumb" src="${b.thumbnail}" loading="lazy">`:`<div class="s-thumb-ph">📖</div>`}
+        <div class="s-info"><h4>${b.title}</h4><p>${(b.authors||[]).join(', ')}${b.publisher?' · '+b.publisher:''}</p>${b.datetime?`<p>${b.datetime.slice(0,4)}년</p>`:''}</div>
+      </div>`).join('');
+  }catch(e){
+    try{
+      const r2=await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(q)}&maxResults=10&langRestrict=ko`);
+      const d2=await r2.json();
+      searchResults=(d2.items||[]).map(item=>{const v=item.volumeInfo||{};return{title:v.title||'',authors:v.authors||[],publisher:v.publisher||'',datetime:v.publishedDate||'',thumbnail:(v.imageLinks?.thumbnail||'').replace('http://','https://'),price:0};});
+      if(!searchResults.length){msg.textContent='검색 결과가 없습니다.';return;}
+      msg.textContent=`${searchResults.length}권 검색됨 — 선택하세요`;
+      list.innerHTML=searchResults.map((b,i)=>`
+        <div class="search-item" id="si${i}" onclick="selectBook(${i})">
+          ${b.thumbnail?`<img class="s-thumb" src="${b.thumbnail}" loading="lazy">`:`<div class="s-thumb-ph">📖</div>`}
+          <div class="s-info"><h4>${b.title}</h4><p>${(b.authors||[]).join(', ')}${b.publisher?' · '+b.publisher:''}</p>${b.datetime?`<p>${b.datetime.slice(0,4)}년</p>`:''}</div>
+        </div>`).join('');
+    }catch(e2){msg.textContent='검색 오류. 직접 입력해 주세요.';}
+  }
+}
+
+function selectBook(i){
+  document.querySelectorAll('.search-item').forEach(el=>el.classList.remove('sel'));
+  document.getElementById('si'+i)?.classList.add('sel');
+  const b=searchResults[i];selectedBook=b;
+  const authors=(b.authors||[]).join(', ');
+  document.getElementById('fTitle').value=b.title||'';
+  document.getElementById('fAuthor').value=authors;
+  document.getElementById('fPublisher').value=b.publisher||'';
+  document.getElementById('fYear').value=b.datetime?b.datetime.slice(0,4):'';
+  if(b.price)document.getElementById('fPrice').value=b.price.toLocaleString();
+  const p=document.getElementById('selPreview');p.style.display='flex';
+  p.innerHTML=`${b.thumbnail?`<img src="${b.thumbnail}" alt="${b.title}">`:`<div class="no-img">📖</div>`}<div class="sel-preview-info"><h3>${b.title}</h3><p>${authors}</p></div>`;
+}
+
+document.getElementById('movieSearchInput').addEventListener('keydown',e=>{if(e.key==='Enter')searchMovies();});
+document.getElementById('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')searchBooks();});
+renderUserBar();
+render();
+</script>
+</body>
+</html>
