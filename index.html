@@ -64,21 +64,21 @@ body { background: var(--beige); color: var(--ink); font-family: var(--font); mi
   position: absolute;
   right: 20px;
   bottom: 0;
-  width: 220px;
-  height: 110px;
+  width: 300px;
+  height: 120px;
   z-index: 2;
 }
 
 /* TOP BAR */
 .top-bar { background: var(--beige-white); border-bottom: 1px solid var(--border); padding: 0 20px; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow-sm); }
 .top-bar-inner { max-width: 780px; margin: 0 auto; }
-.user-row { display: flex; align-items: center; border-bottom: 1px solid var(--border-light); min-height: 54px; }
-.user-btn { padding: 12px 16px; font-size: 20px; color: var(--ink-mute); border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; transition: all .2s; font-family: var(--font); }
+.user-row { display: flex; align-items: center; border-bottom: 1px solid var(--border-light); min-height: 58px; }
+.user-btn { padding: 12px 16px; font-size: 22px; font-weight: 700; color: var(--ink-mute); border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; transition: all .2s; font-family: var(--font); }
 .user-btn.active { color: var(--wood-deep); border-bottom-color: var(--wood); }
 .user-btn:hover { color: var(--ink-soft); }
 .edit-name-btn { background: none; border: none; cursor: pointer; color: var(--ink-faint); font-size: 13px; padding: 0 6px 0 0; }
 .edit-name-btn:hover { color: var(--wood); }
-.all-btn { margin-left: auto; font-size: 18px; color: var(--wood-deep); padding: 12px 12px; border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; font-family: var(--font); }
+.all-btn { margin-left: auto; font-size: 20px; font-weight: 700; color: var(--wood-deep); padding: 12px 12px; border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; font-family: var(--font); }
 .all-btn.active { border-bottom-color: var(--wood); }
 .nav-row { display: flex; gap: 6px; padding: 7px 0; }
 .nav-btn { padding: 6px 16px; font-size: 13px; border: 1px solid var(--border); border-radius: 20px; background: none; cursor: pointer; color: var(--ink-mute); font-family: var(--font); transition: all .2s; }
@@ -208,10 +208,12 @@ body { background: var(--beige); color: var(--ink); font-family: var(--font); mi
 .tag-group { display: flex; flex-wrap: wrap; gap: 6px; }
 .tag-opt { padding: 6px 13px; border: 1.5px solid var(--border); border-radius: 20px; font-size: 12px; cursor: pointer; background: white; color: var(--ink-soft); font-family: var(--font); transition: all .15s; }
 .tag-opt.on { border-color: var(--wood-deep); background: var(--wood-soft); color: var(--wood-deep); }
-.modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px; }
+.modal-actions { display: flex; gap: 8px; justify-content: space-between; align-items: center; margin-top: 4px; }
 .btn-cancel { padding: 10px 16px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 13px; background: white; color: var(--ink-soft); cursor: pointer; font-family: var(--font); }
 .btn-save { padding: 10px 22px; background: var(--wood-deep); color: white; border: none; border-radius: 8px; font-size: 13px; cursor: pointer; font-family: var(--font); }
 .btn-save:hover { background: var(--wood); }
+.btn-delete { padding: 10px 16px; background: none; border: 1.5px solid #D94040; border-radius: 8px; font-size: 13px; color: #D94040; cursor: pointer; font-family: var(--font); }
+.btn-delete:hover { background: #FEE8E8; }
 
 /* NAME MODAL */
 .name-overlay { display: none; position: fixed; inset: 0; background: rgba(44,31,14,.45); z-index: 300; align-items: center; justify-content: center; }
@@ -235,149 +237,128 @@ body { background: var(--beige); color: var(--ink); font-family: var(--font); mi
 <div class="header">
   <div class="header-inner">
     <div class="header-text">
-      <div class="logo">우리家 <span>독서기록</span></div>
-      <div class="logo-sub">FAMILY READING LOG</div>
+      <div class="logo">Family <span>Book &amp; Culture</span></div>
+      <div class="logo-sub">우리家 컬처로그</div>
     </div>
 
-    <!-- 티컵 + 책 수채화 일러스트 -->
-    <svg class="header-illust" viewBox="0 0 240 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- 헤더 일러스트: 라떼컵 + 책들 + 클래퍼보드 -->
+    <svg class="header-illust" viewBox="0 0 300 120" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-      <!-- ✦ 작은 별 장식들 -->
-      <text x="10" y="18" font-size="8" fill="#D4A843" opacity="0.7">✦</text>
-      <text x="190" y="14" font-size="6" fill="#D4A843" opacity="0.6">✦</text>
-      <text x="225" y="40" font-size="7" fill="#EDD9BC" opacity="0.5">✦</text>
-      <text x="5" y="70" font-size="5" fill="#D4A843" opacity="0.5">✦</text>
+      <!-- 배경 잎사귀 -->
+      <path d="M5 50 Q22 32 38 44 Q22 52 5 50Z" fill="#88B070" opacity="0.6"/>
+      <path d="M2 70 Q20 50 34 62 Q18 72 2 70Z" fill="#78A060" opacity="0.5"/>
+      <path d="M270 45 Q252 28 238 40 Q252 50 270 45Z" fill="#88B070" opacity="0.55"/>
+      <path d="M285 68 Q265 48 250 60 Q266 70 285 68Z" fill="#78A060" opacity="0.5"/>
 
-      <!-- ══════════════════════ -->
-      <!-- 왼쪽 — 책 3권 쌓기    -->
-      <!-- ══════════════════════ -->
-      <!-- 책 1 (맨 아래, 진청) -->
-      <rect x="14" y="72" width="52" height="14" rx="3" fill="#3A5F8A"/>
-      <rect x="14" y="72" width="6" height="14" rx="2" fill="#2B4A70"/>
-      <line x1="24" y1="76" x2="62" y2="76" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
-      <line x1="24" y1="80" x2="55" y2="80" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-      <!-- 책 2 (중간, 핑크) -->
-      <rect x="18" y="57" width="48" height="14" rx="3" fill="#E8A0B0"/>
-      <rect x="18" y="57" width="6" height="14" rx="2" fill="#D4788A"/>
-      <line x1="28" y1="61" x2="62" y2="61" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-      <line x1="28" y1="65" x2="56" y2="65" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-      <!-- 책 3 (맨 위, 크림) -->
-      <rect x="22" y="42" width="44" height="14" rx="3" fill="#EDD9BC"/>
-      <rect x="22" y="42" width="6" height="14" rx="2" fill="#C8A87A"/>
-      <line x1="32" y1="46" x2="62" y2="46" stroke="rgba(155,107,58,0.3)" stroke-width="1"/>
-      <line x1="32" y1="50" x2="58" y2="50" stroke="rgba(155,107,58,0.2)" stroke-width="1"/>
-      <!-- 작은 꽃 장식 on 책 -->
-      <circle cx="56" cy="49" r="2.5" fill="#E8A0B0" opacity="0.8"/>
-      <circle cx="56" cy="49" r="1" fill="white" opacity="0.7"/>
+      <!-- 작은 꽃 -->
+      <circle cx="38" cy="38" r="4" fill="#F0A8B8"/>
+      <circle cx="38" cy="33" r="2.8" fill="#F8C8D4" opacity="0.9"/>
+      <circle cx="33" cy="38" r="2.8" fill="#F8C8D4" opacity="0.9"/>
+      <circle cx="43" cy="38" r="2.8" fill="#F8C8D4" opacity="0.9"/>
+      <circle cx="38" cy="43" r="2.8" fill="#F8C8D4" opacity="0.9"/>
+      <circle cx="38" cy="38" r="1.8" fill="white" opacity="0.9"/>
 
-      <!-- ══════════════════════ -->
-      <!-- 중앙 — 메인 티컵       -->
-      <!-- ══════════════════════ -->
-      <!-- 받침대(소서) -->
-      <ellipse cx="122" cy="103" rx="38" ry="7" fill="#EDD9BC"/>
-      <ellipse cx="122" cy="103" rx="38" ry="7" fill="none" stroke="#C8965A" stroke-width="1.2"/>
-      <!-- 소서 꽃무늬 -->
-      <circle cx="90" cy="103" r="2" fill="#E8A0B0" opacity="0.6"/>
-      <circle cx="154" cy="103" r="2" fill="#E8A0B0" opacity="0.6"/>
-      <circle cx="110" cy="108" r="1.5" fill="#D4A843" opacity="0.5"/>
-      <circle cx="134" cy="108" r="1.5" fill="#D4A843" opacity="0.5"/>
+      <!-- ══ 책들 세워진 (왼쪽) ══ -->
+      <ellipse cx="62" cy="112" rx="48" ry="4" fill="#9B6B3A" opacity="0.15"/>
+      <!-- 책1 기울어짐 -->
+      <g transform="rotate(-10,38,108)">
+        <rect x="28" y="62" width="18" height="50" rx="2" fill="#7AAAC8" stroke="#5888A8" stroke-width="0.8"/>
+        <rect x="28" y="62" width="4" height="50" rx="1.5" fill="#5888A8"/>
+        <circle cx="37" cy="76" r="2.5" fill="#F8D0D8" opacity="0.8"/>
+        <circle cx="37" cy="84" r="2.5" fill="#F8D0D8" opacity="0.8"/>
+      </g>
+      <!-- 책2 -->
+      <rect x="50" y="56" width="17" height="56" rx="2" fill="#F0B8C8" stroke="#D890A8" stroke-width="0.8"/>
+      <rect x="50" y="56" width="4" height="56" rx="1.5" fill="#D890A8"/>
+      <line x1="56" y1="66" x2="65" y2="66" stroke="#A878A0" stroke-width="0.8" opacity="0.7"/>
+      <line x1="56" y1="72" x2="65" y2="72" stroke="#A878A0" stroke-width="0.8" opacity="0.7"/>
+      <line x1="56" y1="78" x2="65" y2="78" stroke="#A878A0" stroke-width="0.8" opacity="0.7"/>
+      <!-- 책3 -->
+      <rect x="71" y="53" width="16" height="59" rx="2" fill="#A8C8E0" stroke="#80A8C0" stroke-width="0.8"/>
+      <rect x="71" y="53" width="4" height="59" rx="1.5" fill="#80A8C0"/>
+      <rect x="77" y="62" width="8" height="2" rx="1" fill="white" opacity="0.55"/>
+      <rect x="77" y="68" width="8" height="2" rx="1" fill="white" opacity="0.45"/>
+      <!-- 책4 -->
+      <rect x="91" y="50" width="18" height="62" rx="2" fill="#6898B8" stroke="#4878A0" stroke-width="0.8"/>
+      <rect x="91" y="50" width="4" height="62" rx="1.5" fill="#4878A0"/>
+      <circle cx="100" cy="66" r="5" fill="white" opacity="0.3"/>
+      <circle cx="100" cy="78" r="4" fill="white" opacity="0.25"/>
+      <circle cx="100" cy="88" r="5" fill="white" opacity="0.3"/>
+      <!-- 책갈피 -->
+      <rect x="107" y="58" width="5" height="20" rx="1.5" fill="#D4A843" opacity="0.85"/>
+      <polygon points="107,78 109.5,83 112,78" fill="#D4A843" opacity="0.85"/>
 
-      <!-- 컵 몸체 (핑크 플로럴) -->
-      <path d="M90 68 Q88 96 96 100 Q122 106 148 100 Q156 96 154 68 Z" fill="#F2C4CE"/>
-      <path d="M90 68 Q88 96 96 100 Q122 106 148 100 Q156 96 154 68 Z" fill="none" stroke="#E898A8" stroke-width="1"/>
-      <!-- 컵 입구 타원 -->
-      <ellipse cx="122" cy="68" rx="32" ry="8" fill="#F7D8DF"/>
-      <ellipse cx="122" cy="68" rx="32" ry="8" fill="none" stroke="#E898A8" stroke-width="1"/>
-      <!-- 체크무늬 상단 띠 -->
-      <clipPath id="cupClip">
-        <ellipse cx="122" cy="68" rx="32" ry="8"/>
-      </clipPath>
-      <!-- 꽃무늬 장식 on 컵 -->
-      <!-- 꽃 1 -->
-      <circle cx="105" cy="82" r="5" fill="#F7D8DF" opacity="0.8"/>
-      <circle cx="105" cy="77" r="3" fill="#E8A0B0" opacity="0.7"/>
-      <circle cx="100" cy="82" r="3" fill="#E8A0B0" opacity="0.7"/>
-      <circle cx="110" cy="82" r="3" fill="#E8A0B0" opacity="0.7"/>
-      <circle cx="105" cy="87" r="3" fill="#E8A0B0" opacity="0.7"/>
-      <circle cx="105" cy="82" r="2.5" fill="#FFF0F3"/>
-      <circle cx="105" cy="82" r="1" fill="#E8A0B0"/>
-      <!-- 꽃 2 -->
-      <circle cx="135" cy="86" r="4.5" fill="#F7D8DF" opacity="0.8"/>
-      <circle cx="135" cy="81.5" r="2.5" fill="#D4A843" opacity="0.6"/>
-      <circle cx="130.5" cy="86" r="2.5" fill="#D4A843" opacity="0.6"/>
-      <circle cx="139.5" cy="86" r="2.5" fill="#D4A843" opacity="0.6"/>
-      <circle cx="135" cy="90.5" r="2.5" fill="#D4A843" opacity="0.6"/>
-      <circle cx="135" cy="86" r="2" fill="#FFF8E8"/>
-      <circle cx="135" cy="86" r="1" fill="#D4A843"/>
-      <!-- 잎사귀 -->
-      <ellipse cx="118" cy="80" rx="3" ry="6" fill="#7BA86A" opacity="0.5" transform="rotate(-20,118,80)"/>
-      <ellipse cx="124" cy="92" rx="2.5" ry="5" fill="#7BA86A" opacity="0.4" transform="rotate(15,124,92)"/>
+      <!-- ══ 카페라떼 컵 (중앙) ══ -->
+      <ellipse cx="180" cy="114" rx="48" ry="6" fill="#9B7050" opacity="0.15"/>
+      <!-- 받침접시 -->
+      <ellipse cx="180" cy="108" rx="50" ry="8" fill="#EEEAE4"/>
+      <ellipse cx="180" cy="108" rx="50" ry="8" fill="none" stroke="#C8C0B0" stroke-width="1"/>
+      <ellipse cx="180" cy="108" rx="40" ry="5.5" fill="none" stroke="#C8C0B0" stroke-width="0.6" opacity="0.5"/>
+      <!-- 컵 몸체 흰색/크림 -->
+      <path d="M144 58 Q140 98 150 106 Q180 114 210 106 Q220 98 216 58 Z" fill="#F0EDE8"/>
+      <path d="M144 58 Q140 98 150 106 Q180 114 210 106 Q220 98 216 58 Z" fill="none" stroke="#C8C0B0" stroke-width="1.2"/>
+      <!-- 컵 음영 -->
+      <path d="M144 58 Q140 80 142 100" stroke="#D8D0C0" stroke-width="5" fill="none" opacity="0.2" stroke-linecap="round"/>
+      <!-- 컵 위 타원 -->
+      <ellipse cx="180" cy="58" rx="36" ry="8" fill="#E8E4DC"/>
+      <ellipse cx="180" cy="58" rx="36" ry="8" fill="none" stroke="#C8C0B0" stroke-width="1.2"/>
+      <!-- 손잡이 -->
+      <path d="M216 74 Q238 74 238 88 Q238 102 216 102" stroke="#C8C0B0" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <path d="M216 74 Q235 74 235 88 Q235 102 216 102" stroke="#F0EDE8" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+      <!-- 라떼 음료 따뜻한 브라운 -->
+      <ellipse cx="180" cy="58" rx="30" ry="6.5" fill="#B87840" opacity="0.75"/>
+      <ellipse cx="180" cy="58" rx="24" ry="4.5" fill="#C89050" opacity="0.45"/>
+      <!-- 라떼아트: 아주 작고 연한 크림 하트 -->
+      <path d="M177 57 Q177 54 179.5 55.2 Q180 53 181.5 55.2 Q184 54 184 57 Q184 59 180 61.5 Q177 59 177 57Z" fill="#E8D8C0" opacity="0.55"/>
+      <path d="M177 57 Q177 54 179.5 55.2 Q180 53 181.5 55.2 Q184 54 184 57 Q184 59 180 61.5 Q177 59 177 57Z" fill="none" stroke="#D0C0A0" stroke-width="0.5" opacity="0.4"/>
+      <!-- 김 -->
+      <path d="M168 44 Q171 36 168 28" stroke="#C0B8A8" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.5"/>
+      <path d="M180 41 Q183 32 180 23" stroke="#C0B8A8" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.4"/>
+      <path d="M192 44 Q195 36 192 28" stroke="#C0B8A8" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.5"/>
 
-      <!-- 컵 손잡이 (오른쪽) -->
-      <path d="M154 76 Q172 76 172 86 Q172 96 154 96" stroke="#E898A8" stroke-width="5" fill="none" stroke-linecap="round"/>
-      <path d="M154 76 Q170 76 170 86 Q170 96 154 96" stroke="#F7D8DF" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <!-- ══ 클래퍼보드 (오른쪽, viewBox 안에 완전히) ══ -->
+      <g transform="rotate(-5,244,82)">
+        <!-- 보드 몸체 -->
+        <rect x="222" y="66" width="52" height="40" rx="3" fill="#EDE8E0" stroke="#C0B898" stroke-width="1"/>
+        <!-- 상단 바 -->
+        <rect x="222" y="54" width="52" height="14" rx="3" fill="#E0D8C8" stroke="#C0B898" stroke-width="1"/>
+        <!-- 스트라이프 -->
+        <rect x="225" y="57" width="7" height="8" rx="1" fill="#B0A890"/>
+        <rect x="234" y="57" width="7" height="8" rx="1" fill="#EDE8E0"/>
+        <rect x="243" y="57" width="7" height="8" rx="1" fill="#B0A890"/>
+        <rect x="252" y="57" width="7" height="8" rx="1" fill="#EDE8E0"/>
+        <rect x="261" y="57" width="7" height="8" rx="1" fill="#B0A890"/>
+        <rect x="270" y="57" width="4" height="8" rx="1" fill="#EDE8E0"/>
+        <!-- 윗 막대 열린 상태 -->
+        <g transform="rotate(-26,222,68)">
+          <rect x="210" y="48" width="52" height="12" rx="3" fill="#E0D8C8" stroke="#C0B898" stroke-width="1"/>
+          <rect x="213" y="51" width="6" height="7" rx="1" fill="#B0A890"/>
+          <rect x="221" y="51" width="6" height="7" rx="1" fill="#EDE8E0"/>
+          <rect x="229" y="51" width="6" height="7" rx="1" fill="#B0A890"/>
+          <rect x="237" y="51" width="6" height="7" rx="1" fill="#EDE8E0"/>
+          <rect x="245" y="51" width="6" height="7" rx="1" fill="#B0A890"/>
+          <rect x="253" y="51" width="6" height="7" rx="1" fill="#EDE8E0"/>
+        </g>
+        <!-- 힌지 -->
+        <circle cx="222" cy="68" r="2.2" fill="#C8C0B0" stroke="#A8A090" stroke-width="0.7"/>
+        <circle cx="273" cy="68" r="2.2" fill="#C8C0B0" stroke="#A8A090" stroke-width="0.7"/>
+        <!-- 보드 내용 선 -->
+        <line x1="228" y1="76" x2="268" y2="76" stroke="#C0B898" stroke-width="0.7" opacity="0.6"/>
+        <rect x="228" y="80" width="16" height="7" rx="1.5" fill="none" stroke="#C0B898" stroke-width="0.6" opacity="0.5"/>
+        <line x1="228" y1="83" x2="244" y2="83" stroke="#C0B898" stroke-width="0.6" opacity="0.4"/>
+        <line x1="248" y1="80" x2="268" y2="80" stroke="#C0B898" stroke-width="0.6" opacity="0.4"/>
+        <line x1="228" y1="92" x2="268" y2="92" stroke="#C0B898" stroke-width="0.7" opacity="0.5"/>
+        <line x1="228" y1="99" x2="264" y2="99" stroke="#C0B898" stroke-width="0.6" opacity="0.4"/>
+        <line x1="228" y1="104" x2="266" y2="104" stroke="#C0B898" stroke-width="0.6" opacity="0.35"/>
+      </g>
 
-      <!-- 컵 안 음료(따뜻한 갈색) -->
-      <ellipse cx="122" cy="68" rx="28" ry="5.5" fill="#C8865A" opacity="0.5"/>
-      <ellipse cx="122" cy="68" rx="22" ry="3.5" fill="#D4A843" opacity="0.3"/>
-
-      <!-- 김 (steam) -->
-      <path d="M108 58 Q110 50 108 42" stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <path d="M118 56 Q121 47 118 38" stroke="rgba(255,255,255,0.4)" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <path d="M129 57 Q132 48 130 40" stroke="rgba(255,255,255,0.4)" stroke-width="2" fill="none" stroke-linecap="round"/>
-
-      <!-- 파란 리본 -->
-      <!-- 리본 왼쪽 날개 -->
-      <path d="M108 64 Q100 58 95 62 Q100 66 108 64 Z" fill="#5A85C0"/>
-      <!-- 리본 오른쪽 날개 -->
-      <path d="M136 64 Q144 58 149 62 Q144 66 136 64 Z" fill="#5A85C0"/>
-      <!-- 리본 중심 매듭 -->
-      <ellipse cx="122" cy="64" rx="7" ry="5" fill="#6A95D0"/>
-      <ellipse cx="122" cy="64" rx="3.5" ry="2.5" fill="#7AAAE0"/>
-      <!-- 리본 꼬리 -->
-      <path d="M119 67 Q115 74 112 72" stroke="#5A85C0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <path d="M125 67 Q129 74 132 72" stroke="#5A85C0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-
-      <!-- ══════════════════════ -->
-      <!-- 오른쪽 — 작은 책 1권   -->
-      <!-- ══════════════════════ -->
-      <!-- 펼쳐진 책 -->
-      <path d="M170 80 Q192 76 214 80 L214 108 Q192 112 170 108 Z" fill="#EDD9BC"/>
-      <path d="M192 76 L192 112" stroke="#C8965A" stroke-width="1.5"/>
-      <path d="M170 80 Q192 76 214 80" fill="none" stroke="#C8A87A" stroke-width="1"/>
-      <!-- 왼쪽 페이지 줄 -->
-      <line x1="176" y1="87" x2="190" y2="85" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
-      <line x1="176" y1="91" x2="190" y2="90" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
-      <line x1="176" y1="95" x2="190" y2="94" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
-      <line x1="176" y1="99" x2="190" y2="99" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
-      <line x1="176" y1="103" x2="190" y2="103" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
-      <!-- 오른쪽 페이지 줄 -->
-      <line x1="194" y1="85" x2="208" y2="87" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
-      <line x1="194" y1="90" x2="208" y2="91" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
-      <line x1="194" y1="94" x2="208" y2="95" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
-      <line x1="194" y1="99" x2="208" y2="99" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
-      <line x1="194" y1="103" x2="208" y2="103" stroke="#BCA08A" stroke-width="0.8" opacity="0.7"/>
-      <!-- 책 표지 그림자 -->
-      <path d="M170 108 Q192 112 214 108 L214 111 Q192 115 170 111 Z" fill="#C8A87A" opacity="0.4"/>
-
-      <!-- 작은 꽃 장식들 (흩어진) -->
-      <!-- 꽃 A -->
-      <circle cx="30" cy="30" r="4" fill="#F2C4CE" opacity="0.7"/>
-      <circle cx="30" cy="26" r="2.5" fill="#E8A0B0" opacity="0.6"/>
-      <circle cx="26" cy="30" r="2.5" fill="#E8A0B0" opacity="0.6"/>
-      <circle cx="34" cy="30" r="2.5" fill="#E8A0B0" opacity="0.6"/>
-      <circle cx="30" cy="34" r="2.5" fill="#E8A0B0" opacity="0.6"/>
-      <circle cx="30" cy="30" r="2" fill="white" opacity="0.8"/>
-      <!-- 꽃 B -->
-      <circle cx="220" cy="80" r="3.5" fill="#D4A843" opacity="0.6"/>
-      <circle cx="220" cy="76.5" r="2" fill="#E8C060" opacity="0.5"/>
-      <circle cx="216.5" cy="80" r="2" fill="#E8C060" opacity="0.5"/>
-      <circle cx="223.5" cy="80" r="2" fill="#E8C060" opacity="0.5"/>
-      <circle cx="220" cy="83.5" r="2" fill="#E8C060" opacity="0.5"/>
-      <circle cx="220" cy="80" r="1.5" fill="white" opacity="0.7"/>
-      <!-- 작은 잎 -->
-      <ellipse cx="22" cy="38" rx="2" ry="4" fill="#7BA86A" opacity="0.5" transform="rotate(30,22,38)"/>
-      <ellipse cx="35" cy="22" rx="1.5" ry="3" fill="#7BA86A" opacity="0.4" transform="rotate(-20,35,22)"/>
+      <!-- 흩날리는 꽃잎·별 -->
+      <ellipse cx="128" cy="42" rx="4" ry="2.8" fill="#F0A8B8" opacity="0.6" transform="rotate(30,128,42)"/>
+      <ellipse cx="142" cy="32" rx="3.5" ry="2.5" fill="#F0A8B8" opacity="0.5" transform="rotate(-20,142,32)"/>
+      <ellipse cx="224" cy="36" rx="3.5" ry="2.5" fill="#D4C040" opacity="0.45" transform="rotate(15,224,36)"/>
+      <text x="244" y="28" font-size="7" fill="#D4A843" opacity="0.6" font-family="sans-serif">✦</text>
+      <text x="118" y="26" font-size="6" fill="#C8965A" opacity="0.5" font-family="sans-serif">✦</text>
+      <text x="8" y="28" font-size="7" fill="#D4A843" opacity="0.55" font-family="sans-serif">✦</text>
     </svg>
   </div>
 </div>
@@ -398,7 +379,7 @@ body { background: var(--beige); color: var(--ink); font-family: var(--font); mi
       </div>
       <div style="display:flex;gap:6px;">
         <button class="sub-tab-btn active" id="stb-book" onclick="setSubTab('book')">📚 독서현황</button>
-        <button class="sub-tab-btn" id="stb-movie" onclick="setSubTab('movie')">🎬 영화즐기기</button>
+        <button class="sub-tab-btn" id="stb-movie" onclick="setSubTab('movie')">🎭 문화즐기기</button>
       </div>
     </div>
   </div>
@@ -415,12 +396,15 @@ body { background: var(--beige); color: var(--ink); font-family: var(--font); mi
 
 <div class="name-overlay" id="nameOverlay" onclick="handleNameOverlay(event)">
   <div class="name-modal">
-    <h3>이름 수정</h3>
+    <h3 id="nameModalTitle">이름 수정</h3>
     <p>표시될 이름을 입력하세요</p>
     <input class="name-input" id="nameInput" maxlength="10" onkeydown="if(event.key==='Enter')saveUserName()"/>
-    <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end;">
-      <button class="btn-cancel" onclick="closeNameModal()">취소</button>
-      <button class="btn-save" onclick="saveUserName()">저장</button>
+    <div style="display:flex;gap:8px;margin-top:14px;align-items:center;">
+      <button class="btn-delete" id="nameDeleteBtn" style="display:none" onclick="deleteMember()">삭제</button>
+      <div style="margin-left:auto;display:flex;gap:8px;">
+        <button class="btn-cancel" onclick="closeNameModal()">취소</button>
+        <button class="btn-save" onclick="saveUserName()">저장</button>
+      </div>
     </div>
   </div>
 </div>
@@ -490,10 +474,23 @@ body { background: var(--beige); color: var(--ink); font-family: var(--font); mi
   </div>
 </div>
 
-<!-- 영화 추가/수정 모달 -->
+<!-- 문화즐기기 추가/수정 모달 -->
 <div class="overlay" id="movieOverlay" onclick="handleMovieOverlay(event)">
   <div class="modal">
-    <div class="modal-title" id="movieModalTitle">영화 추가</div>
+    <div class="modal-title" id="movieModalTitle">콘텐츠 추가</div>
+
+    <!-- 장르 선택 -->
+    <div class="form-section" style="margin-bottom:12px">
+      <div class="form-section-title">장르 선택</div>
+      <div class="status-group" id="cultureGenreGroup">
+        <button class="status-opt" id="cg-movie" onclick="setCultureGenre('movie')">🎬 영화</button>
+        <button class="status-opt" id="cg-musical" onclick="setCultureGenre('musical')">🎭 뮤지컬</button>
+        <button class="status-opt" id="cg-exhibit" onclick="setCultureGenre('exhibit')">🖼️ 전시</button>
+        <button class="status-opt" id="cg-concert" onclick="setCultureGenre('concert')">🎵 콘서트</button>
+      </div>
+    </div>
+
+    <!-- 영화 검색 (영화 장르일 때만 표시) -->
     <div id="movieSearchSection">
       <div class="search-row">
         <input class="search-input" id="movieSearchInput" placeholder="영화 제목 검색..."/>
@@ -502,23 +499,38 @@ body { background: var(--beige); color: var(--ink); font-family: var(--font); mi
       <div id="movieSearchStatus" class="search-status"></div>
       <div id="movieSearchResults" class="search-results"></div>
     </div>
-    <div id="movieSelPreview" class="sel-preview" style="display:none"></div>
-    <div class="form-section">
-      <div class="form-section-title">영화 정보</div>
-      <div class="field-row one"><div class="fg"><label>제목 *</label><input id="mTitle" placeholder="영화 제목"/></div></div>
-      <div class="field-row">
-        <div class="fg"><label>감독</label><input id="mDirector" placeholder="감독"/></div>
-        <div class="fg"><label>개봉연도</label><input id="mYear" placeholder="2024"/></div>
+
+    <!-- 포스터 URL (영화 외 장르일 때 표시) -->
+    <div id="posterUrlSection" style="display:none;margin-bottom:12px">
+      <div class="fg">
+        <label>포스터 이미지 URL (선택)</label>
+        <input id="mPosterUrl" placeholder="네이버에서 이미지 주소 복사 후 붙여넣기"/>
       </div>
-      <div class="field-row one"><div class="fg"><label>장르</label><input id="mGenre" placeholder="액션, 드라마 등"/></div></div>
+      <div style="font-size:11px;color:var(--ink-faint);margin-top:4px">
+        💡 구글 이미지는 보안 정책상 표시가 안 될 수 있어요.<br>
+        <b style="color:var(--wood-deep)">네이버 이미지 검색</b> → 이미지 우클릭 → "이미지 주소 복사" 를 사용하세요!
+      </div>
     </div>
+
+    <div id="movieSelPreview" class="sel-preview" style="display:none"></div>
+
+    <div class="form-section">
+      <div class="form-section-title" id="cultureInfoTitle">작품 정보</div>
+      <div class="field-row one"><div class="fg"><label>제목 *</label><input id="mTitle" placeholder="제목"/></div></div>
+      <div class="field-row">
+        <div class="fg"><label id="mCreatorLabel">감독</label><input id="mDirector" placeholder="감독/연출"/></div>
+        <div class="fg"><label>연도</label><input id="mYear" placeholder="2024"/></div>
+      </div>
+      <div class="field-row one"><div class="fg"><label id="mGenreLabel">장르/분류</label><input id="mGenre" placeholder="액션, 드라마 등"/></div></div>
+    </div>
+
     <div class="form-section">
       <div class="form-section-title">관람 정보</div>
       <div style="margin-bottom:12px">
         <label style="font-size:11px;color:var(--ink-mute);display:block;margin-bottom:8px;font-family:var(--font)">관람 상태</label>
         <div class="status-group">
           <button class="status-opt" id="mst-done" onclick="setMovieStatus('done')">✅ 봤어요</button>
-          <button class="status-opt" id="mst-reading" onclick="setMovieStatus('watching')">🍿 보는 중</button>
+          <button class="status-opt" id="mst-reading" onclick="setMovieStatus('watching')">👀 보는 중</button>
           <button class="status-opt" id="mst-wish" onclick="setMovieStatus('wish')">🔖 보고 싶음</button>
         </div>
       </div>
@@ -537,16 +549,19 @@ body { background: var(--beige); color: var(--ink); font-family: var(--font); mi
       </div>
       <div class="field-row one"><div class="fg"><label>메모</label><textarea id="mMemo" placeholder="한 줄 감상..."></textarea></div></div>
     </div>
-    <div class="form-section">
+
+    <!-- 관람 방법 (영화일 때만) -->
+    <div class="form-section" id="viewMethodSection">
       <div class="form-section-title">관람 방법</div>
       <div class="tag-group" id="movieTagGroup">
-        <button class="tag-opt" onclick="toggleMovieTag('theater')">🎭 극장</button>
-        <button class="tag-opt" onclick="toggleMovieTag('netflix')">📺 넷플릭스</button>
-        <button class="tag-opt" onclick="toggleMovieTag('watcha')">🎬 왓챠</button>
-        <button class="tag-opt" onclick="toggleMovieTag('wavve')">📡 웨이브</button>
+        <button class="tag-opt" onclick="toggleMovieTag('theater')">🎬 극장</button>
+        <button class="tag-opt" onclick="toggleMovieTag('netflix')">🔴 넷플릭스</button>
+        <button class="tag-opt" onclick="toggleMovieTag('wavve')"><svg width="18" height="18" viewBox="0 0 18 18" style="vertical-align:middle;margin-right:4px;border-radius:4px"><rect width="18" height="18" rx="4" fill="#0038FF"/><text x="9" y="13.5" font-size="11" fill="white" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900">W</text></svg>웨이브</button>
+        <button class="tag-opt" onclick="toggleMovieTag('disney')"><svg width="14" height="14" viewBox="0 0 14 14" style="vertical-align:middle;margin-right:4px"><circle cx="7" cy="7" r="6.5" fill="none" stroke="#2E7FA3" stroke-width="1.2"/><text x="7" y="10.5" font-size="7" fill="#2E7FA3" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-weight="bold">D+</text></svg>디즈니+</button>
         <button class="tag-opt" onclick="toggleMovieTag('buy')">💿 소장</button>
       </div>
     </div>
+
     <div class="modal-actions" id="movieModalActions">
       <button class="btn-cancel" onclick="closeMovieModal()">취소</button>
       <button class="btn-save" onclick="saveMovieRecord()">저장</button>
@@ -557,19 +572,23 @@ body { background: var(--beige); color: var(--ink); font-family: var(--font); mi
 <script>
 const KAKAO_KEY='e17c3cb4aa9b805f578ae3f2c8114929';
 const TMDB_KEY=''; // TMDB API 키 (없어도 작동)
-const USERS=['me','son1','son2'];
+const USERS=['me','son1','son2','member4','member5'];
 const COLORS={
-  me:  {bar:'#9B6B3A',border:'#9B6B3A',dot:'#9B6B3A'},
-  son1:{bar:'#2B5278',border:'#2B5278',dot:'#2B5278'},
-  son2:{bar:'#3D6B4A',border:'#3D6B4A',dot:'#3D6B4A'}
+  me:      {bar:'#9B6B3A',border:'#9B6B3A',dot:'#9B6B3A'},
+  son1:    {bar:'#2B5278',border:'#2B5278',dot:'#2B5278'},
+  son2:    {bar:'#3D6B4A',border:'#3D6B4A',dot:'#3D6B4A'},
+  member4: {bar:'#7B3A8A',border:'#7B3A8A',dot:'#7B3A8A'},
+  member5: {bar:'#8A3A3A',border:'#8A3A3A',dot:'#8A3A3A'}
 };
 let currentUser='me',currentView='list';
 let calYear=new Date().getFullYear(),calMonth=new Date().getMonth();
 const TODAY=new Date();
 let searchResults=[],selectedBook=null;
 let currentStar=0,currentStatus='',currentTags=new Set(),editingId=null,editingUser=null,nameEditingUser=null;
-const defaultNames={me:'나',son1:'아들1',son2:'아들2'};
+const defaultNames={me:'나',son1:'아들1',son2:'아들2',member4:'멤버4',member5:'멤버5'};
 let userNames=JSON.parse(localStorage.getItem('fam_names')||'null')||{...defaultNames};
+// 새 멤버 기본이름 없으면 추가
+['member4','member5'].forEach(k=>{if(!userNames[k])userNames[k]=defaultNames[k];});
 
 // 영화 전용 상태
 let movieSearchResults=[],selectedMovie=null;
@@ -585,12 +604,23 @@ function saveMovies(u,recs){const d=JSON.parse(localStorage.getItem('fam_movies_
 
 function renderUserBar(){
   const row=document.getElementById('userRow');
-  let html=USERS.map(k=>`
+  // 멤버4,5는 기본이름(멤버4,멤버5)이면 탭 숨김 — 이름 변경 시 표시
+  const visibleUsers=USERS.filter(k=>{
+    if(k==='member4'||k==='member5') return userNames[k]!==defaultNames[k];
+    return true;
+  });
+  let html=visibleUsers.map(k=>`
     <div style="display:flex;align-items:center;border-bottom:2px solid ${currentUser===k?'var(--wood)':'transparent'};margin-bottom:-1px;">
       <button class="user-btn${currentUser===k?' active':''}" onclick="setUser('${k}')">${userNames[k]}</button>
       <button class="edit-name-btn" onclick="openNameModal('${k}')">✎</button>
     </div>`).join('');
-  html+=`<button class="all-btn${currentUser==='all'?' active':''}" onclick="setUser('all')">가족책영화현황</button>`;
+  // 멤버4,5 추가 버튼 (기본이름인 경우만 +버튼 표시)
+  ['member4','member5'].forEach(k=>{
+    if(userNames[k]===defaultNames[k]){
+      html+=`<button class="edit-name-btn" style="padding:8px 10px;font-size:18px;color:var(--ink-faint)" onclick="openNameModal('${k}')" title="멤버 추가">＋</button>`;
+    }
+  });
+  html+=`<button class="all-btn${currentUser==='all'?' active':''}" onclick="setUser('all')">Culture Board</button>`;
   row.innerHTML=html;
 }
 
@@ -601,12 +631,11 @@ function setUser(u){
   document.getElementById('normalNavRow').style.display=isAll?'none':'flex';
   document.getElementById('familyNavRow').style.display=isAll?'flex':'none';
   if(isAll){
-    // 가족탭: 리스트/월별 active 상태 반영
     document.getElementById('fnb-list').classList.toggle('active',currentView==='list');
     document.getElementById('fnb-month').classList.toggle('active',currentView==='month');
   }
   document.getElementById('addBtnLabel').textContent=
-    (isAll && currentSubTab==='movie')?'영화 추가하기':'책 추가하기';
+    (isAll && currentSubTab==='movie')?'콘텐츠 추가하기':'책 추가하기';
   render();
 }
 function setView(v){
@@ -622,16 +651,43 @@ function setSubTab(t){
   currentSubTab=t;
   document.getElementById('stb-book').classList.toggle('active',t==='book');
   document.getElementById('stb-movie').classList.toggle('active',t==='movie');
-  document.getElementById('addBtnLabel').textContent=t==='movie'?'영화 추가하기':'책 추가하기';
+  document.getElementById('addBtnLabel').textContent=t==='movie'?'콘텐츠 추가하기':'책 추가하기';
   render();
 }
-function openNameModal(k){nameEditingUser=k;document.getElementById('nameInput').value=userNames[k];document.getElementById('nameOverlay').classList.add('open');setTimeout(()=>document.getElementById('nameInput').focus(),50);}
+function openNameModal(k){
+  nameEditingUser=k;
+  document.getElementById('nameInput').value=userNames[k];
+  // 멤버4,5이고 이미 이름 설정된 경우만 삭제 버튼 표시
+  const isOptional=(k==='member4'||k==='member5');
+  const isNamed=userNames[k]!==defaultNames[k];
+  const deleteBtn=document.getElementById('nameDeleteBtn');
+  deleteBtn.style.display=(isOptional&&isNamed)?'block':'none';
+  // 타이틀
+  document.getElementById('nameModalTitle').textContent=
+    (!isNamed&&isOptional)?'멤버 추가':'이름 수정';
+  document.getElementById('nameOverlay').classList.add('open');
+  setTimeout(()=>document.getElementById('nameInput').focus(),50);
+}
 function closeNameModal(){document.getElementById('nameOverlay').classList.remove('open');nameEditingUser=null;}
 function handleNameOverlay(e){if(e.target===document.getElementById('nameOverlay'))closeNameModal();}
-function saveUserName(){const v=document.getElementById('nameInput').value.trim();if(!v)return;userNames[nameEditingUser]=v;localStorage.setItem('fam_names',JSON.stringify(userNames));closeNameModal();renderUserBar();render();}
+function saveUserName(){
+  const v=document.getElementById('nameInput').value.trim();
+  if(!v)return;
+  userNames[nameEditingUser]=v;
+  localStorage.setItem('fam_names',JSON.stringify(userNames));
+  closeNameModal();renderUserBar();render();
+}
+function deleteMember(){
+  if(!nameEditingUser)return;
+  if(!confirm(`${userNames[nameEditingUser]} 멤버를 삭제할까요?\n(기록 데이터는 유지됩니다)`))return;
+  userNames[nameEditingUser]=defaultNames[nameEditingUser]; // 기본값으로 리셋 → 탭 숨김
+  localStorage.setItem('fam_names',JSON.stringify(userNames));
+  // 현재 탭이 삭제된 멤버면 '나'로 이동
+  if(currentUser===nameEditingUser) currentUser='me';
+  closeNameModal();renderUserBar();render();
+}
 
 function render(){
-  // 우리가족+영화 탭
   if(currentUser==='all' && currentSubTab==='movie'){
     renderStats();
     renderMovieListAll();
@@ -643,21 +699,30 @@ function render(){
 }
 
 function renderStats(){
-  let recs=currentUser==='all'?USERS.flatMap(u=>getRecs(u)):getRecs();
-  const done=recs.filter(r=>r.status==='done').length;
-  const reading=recs.filter(r=>r.status==='reading').length;
+  let recs,done,reading,label1,label2,label3;
+  if(currentUser==='all' && currentSubTab==='movie'){
+    // 문화즐기기 탭: 영화/뮤지컬/전시/콘서트 카운트
+    recs=activeUsers().flatMap(u=>getMovies(u));
+    done=recs.filter(r=>r.status==='done').length;
+    reading=recs.filter(r=>r.status==='watching').length;
+    label1='전체';label2='봤어요';label3='보는 중';
+  } else {
+    recs=currentUser==='all'?activeUsers().flatMap(u=>getRecs(u)):getRecs();
+    done=recs.filter(r=>r.status==='done').length;
+    reading=recs.filter(r=>r.status==='reading').length;
+    label1='전체';label2='완독';label3='읽는 중';
+  }
   document.getElementById('statsRow').innerHTML=`
-    <div class="stat-card"><div class="stat-num" style="color:var(--wood-deep)">${recs.length}</div><div class="stat-label">전체</div></div>
-    <div class="stat-card"><div class="stat-num" style="color:var(--green)">${done}</div><div class="stat-label">완독</div></div>
-    <div class="stat-card"><div class="stat-num" style="color:var(--blue)">${reading}</div><div class="stat-label">읽는 중</div></div>`;
+    <div class="stat-card"><div class="stat-num" style="color:var(--wood-deep)">${recs.length}</div><div class="stat-label">${label1}</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--green)">${done}</div><div class="stat-label">${label2}</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--blue)">${reading}</div><div class="stat-label">${label3}</div></div>`;
 }
 
 function renderList(){
   const el=document.getElementById('viewContent');
   if(currentUser==='all'){
-    // 가족책영화현황 - 리스트: 월별 구분선 + 간결 표시
     const d=getData();
-    const allRecs=USERS.flatMap(u=>(d[u]||[]).filter(r=>r.status!=='wish').map(r=>({...r,_u:u})))
+    const allRecs=activeUsers().flatMap(u=>(d[u]||[]).filter(r=>r.status!=='wish').map(r=>({...r,_u:u})))
       .sort((a,b)=>(b.date||'').localeCompare(a.date||''));
     if(!allRecs.length){el.innerHTML=`<div class="empty"><div class="empty-icon">📚</div><div>기록이 없어요</div></div>`;return;}
     // 월별 그룹
@@ -701,10 +766,18 @@ function renderList(){
   }).join('');
 }
 
+// 활성 멤버 (이름 설정된 멤버만)
+function activeUsers(){
+  return USERS.filter(k=>{
+    if(k==='member4'||k==='member5') return userNames[k]!==defaultNames[k];
+    return true;
+  });
+}
+
 // 가족현황 차트 (공통)
 function renderFamilyChart(){
   const d=getData();
-  const counts=USERS.map(u=>({u,recs:(d[u]||[]).filter(r=>r.status!=='wish')}));
+  const counts=activeUsers().map(u=>({u,recs:(d[u]||[]).filter(r=>r.status!=='wish')}));
   const maxC=Math.max(...counts.map(c=>c.recs.length),1);
   return `<div class="chart-card" style="margin-bottom:16px">
     <div class="chart-title" style="margin-bottom:12px">📊 독서 현황</div>
@@ -797,7 +870,7 @@ function renderMonth(){
     // 가족탭 월별: 차트 + 달력 + 사람별 섹션
     const chartHtml=renderFamilyChart();
     let monthList='';let hasAny=false;
-    USERS.forEach(u=>{
+    activeUsers().forEach(u=>{
       const secRecs=(d[u]||[]).filter(r=>r.date&&r.date.startsWith(ym)).sort((a,b)=>a.date.localeCompare(b.date));
       if(!secRecs.length)return;
       hasAny=true;
@@ -832,7 +905,14 @@ function renderMonth(){
   }
 }
 
-function changeMonth(d){calMonth+=d;if(calMonth>11){calMonth=0;calYear++;}if(calMonth<0){calMonth=11;calYear--;}renderMonth();}
+function changeMonth(d){
+  calMonth+=d;
+  if(calMonth>11){calMonth=0;calYear++;}
+  if(calMonth<0){calMonth=11;calYear--;}
+  // 영화탭이면 영화 렌더, 아니면 독서 렌더
+  if(currentUser==='all' && currentSubTab==='movie') renderMovieListAll();
+  else renderMonth();
+}
 
 function resetForm(){
   selectedBook=null;currentStar=0;currentStatus='';currentTags=new Set();editingId=null;editingUser=null;
@@ -855,19 +935,54 @@ function openAddModal(){
 }
 
 /* ── 영화 모달 ── */
+let currentCultureGenre='movie'; // 기본값 영화
+
+function setCultureGenre(g){
+  currentCultureGenre=g;
+  // 버튼 활성화
+  ['movie','musical','exhibit','concert'].forEach(k=>{
+    const b=document.getElementById('cg-'+k);
+    if(b){b.className='status-opt';if(k===g)b.classList.add('on-done');}
+  });
+  // 영화면 검색창, 아니면 URL 입력창
+  const isMovie=(g==='movie');
+  document.getElementById('movieSearchSection').style.display=isMovie?'block':'none';
+  document.getElementById('posterUrlSection').style.display=isMovie?'none':'block';
+  document.getElementById('viewMethodSection').style.display=isMovie?'block':'none';
+  // 라벨 변경
+  const labels={movie:{info:'영화 정보',creator:'감독',genre:'장르'},musical:{info:'뮤지컬 정보',creator:'연출',genre:'분류'},exhibit:{info:'전시 정보',creator:'작가/기획',genre:'분야'},concert:{info:'콘서트 정보',creator:'아티스트',genre:'분류'}};
+  const l=labels[g]||labels.movie;
+  document.getElementById('cultureInfoTitle').textContent=l.info;
+  document.getElementById('mCreatorLabel').textContent=l.creator;
+  document.getElementById('mGenreLabel').textContent=l.genre;
+  // placeholder
+  const placeholders={movie:'영화 제목',musical:'뮤지컬 제목',exhibit:'전시 제목',concert:'콘서트명'};
+  document.getElementById('mTitle').placeholder=placeholders[g]||'제목';
+}
+
 function resetMovieForm(){
   selectedMovie=null;movieStar=0;movieStatus='';movieTags=new Set();editingMovieId=null;editingMovieUser=null;
+  currentCultureGenre='movie';
   document.getElementById('movieSearchInput').value='';
   document.getElementById('movieSearchStatus').textContent='';
   document.getElementById('movieSearchResults').innerHTML='';
   document.getElementById('movieSelPreview').style.display='none';
+  document.getElementById('posterUrlSection').style.display='none';
+  document.getElementById('movieSearchSection').style.display='block';
+  document.getElementById('viewMethodSection').style.display='block';
+  if(document.getElementById('mPosterUrl'))document.getElementById('mPosterUrl').value='';
   ['mTitle','mDirector','mYear','mGenre','mMemo'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('mDate').value=new Date().toISOString().split('T')[0];
+  // 장르 버튼 초기화
+  ['movie','musical','exhibit','concert'].forEach(k=>{
+    const b=document.getElementById('cg-'+k);
+    if(b){b.className='status-opt';if(k==='movie')b.classList.add('on-done');}
+  });
   updateMovieStars();updateMovieStatusBtns();updateMovieTagBtns();
 }
 function openMovieModal(){
   resetMovieForm();
-  document.getElementById('movieModalTitle').textContent=`영화 추가 — ${currentUser==='all'?'':userNames[currentUser]}`;
+  document.getElementById('movieModalTitle').textContent=`콘텐츠 추가 — ${currentUser==='all'?'':userNames[currentUser]}`;
   document.getElementById('movieModalActions').innerHTML=`<button class="btn-cancel" onclick="closeMovieModal()">취소</button><button class="btn-save" onclick="saveMovieRecord()">저장</button>`;
   document.getElementById('movieOverlay').classList.add('open');
 }
@@ -878,7 +993,11 @@ function openEditMovieModal(id,u){
   resetMovieForm();
   editingMovieId=id;editingMovieUser=targetUser;
   selectedMovie={poster:r.poster||''};
-  document.getElementById('movieModalTitle').textContent='영화 수정';
+  // 장르 복원
+  const g=r.cultureGenre||'movie';
+  currentCultureGenre=g;
+  setCultureGenre(g);
+  document.getElementById('movieModalTitle').textContent='콘텐츠 수정';
   document.getElementById('mTitle').value=r.title||'';
   document.getElementById('mDirector').value=r.director||'';
   document.getElementById('mYear').value=r.year||'';
@@ -886,9 +1005,12 @@ function openEditMovieModal(id,u){
   document.getElementById('mDate').value=r.date||'';
   document.getElementById('mMemo').value=r.memo||'';
   movieStar=r.star||0;movieStatus=r.status||'';movieTags=new Set(r.tags||[]);
+  if(r.poster&&g!=='movie'){
+    if(document.getElementById('mPosterUrl'))document.getElementById('mPosterUrl').value=r.poster;
+  }
   if(r.poster){const p=document.getElementById('movieSelPreview');p.style.display='flex';p.innerHTML=`<img src="${r.poster}" alt="${r.title}" style="width:48px;height:72px;object-fit:cover;border-radius:4px;flex-shrink:0"><div class="sel-preview-info"><h3>${r.title}</h3><p>${r.director||''} ${r.year?'· '+r.year:''}</p></div>`;}
   updateMovieStars();updateMovieStatusBtns();updateMovieTagBtns();
-  document.getElementById('movieModalActions').innerHTML=`<button class="btn-cancel" onclick="closeMovieModal()">취소</button><button class="btn-save" onclick="saveMovieRecord()">저장</button>`;
+  document.getElementById('movieModalActions').innerHTML=`<button class="btn-delete" onclick="deleteMovieRecord()">삭제</button><div style="display:flex;gap:8px"><button class="btn-cancel" onclick="closeMovieModal()">취소</button><button class="btn-save" onclick="saveMovieRecord()">저장</button></div>`;
   document.getElementById('movieOverlay').classList.add('open');
 }
 function closeMovieModal(){document.getElementById('movieOverlay').classList.remove('open');}
@@ -904,22 +1026,30 @@ function updateMovieStatusBtns(){
   });
 }
 function toggleMovieTag(t){movieTags.has(t)?movieTags.delete(t):movieTags.add(t);updateMovieTagBtns();}
-function updateMovieTagBtns(){const keys=['theater','netflix','watcha','wavve','buy'];document.querySelectorAll('#movieTagGroup .tag-opt').forEach((b,i)=>b.classList.toggle('on',movieTags.has(keys[i])));}
+function updateMovieTagBtns(){const keys=['theater','netflix','wavve','disney','buy'];document.querySelectorAll('#movieTagGroup .tag-opt').forEach((b,i)=>b.classList.toggle('on',movieTags.has(keys[i])));}
 
 function saveMovieRecord(){
   const title=document.getElementById('mTitle').value.trim();
-  if(!title){alert('영화 제목을 입력해 주세요.');return;}
+  if(!title){alert('제목을 입력해 주세요.');return;}
   const targetUser=editingMovieUser||(currentUser==='all'?'me':currentUser);
   const recs=getMovies(targetUser);
+  // 포스터: 영화면 TMDB, 아니면 URL 입력값
+  let poster=selectedMovie?.poster||'';
+  if(currentCultureGenre!=='movie'){
+    const urlInput=document.getElementById('mPosterUrl').value.trim();
+    if(urlInput)poster=urlInput;
+  }
   const rec={
-    id:editingMovieId||Date.now(),title,
+    id:editingMovieId||Date.now(),
+    title,
+    cultureGenre:currentCultureGenre,
     director:document.getElementById('mDirector').value.trim(),
     year:document.getElementById('mYear').value.trim(),
     genre:document.getElementById('mGenre').value.trim(),
     date:document.getElementById('mDate').value,
     memo:document.getElementById('mMemo').value.trim(),
     star:movieStar,status:movieStatus,tags:[...movieTags],
-    poster:selectedMovie?.poster||''
+    poster
   };
   if(editingMovieId){const i=recs.findIndex(x=>x.id===editingMovieId);if(i!==-1)recs[i]=rec;}
   else recs.unshift(rec);
@@ -937,7 +1067,7 @@ async function searchMovies(){
 
   // 1차: 한국어로 검색
   const trySearch=async(lang)=>{
-    const url=`https://api.themoviedb.org/3/search/movie?api_key=4b9a892b5e53ecab6d8ade0ca4cb7d86&query=${encodeURIComponent(q)}&language=${lang}&include_adult=false&page=1`;
+    const url=`https://api.themoviedb.org/3/search/movie?api_key=8265bd1679663a7ea12ac168da84d2e8&query=${encodeURIComponent(q)}&language=${lang}&include_adult=false&page=1`;
     const res=await fetch(url);
     if(!res.ok)throw new Error(res.status);
     const data=await res.json();
@@ -1000,16 +1130,20 @@ function renderMovieListAll(){
   const el=document.getElementById('viewContent');
   const statusLabel={done:'✅ 봤어요',watching:'🍿 보는 중',wish:'🔖 보고 싶음'};
   const statusBadgeCls={done:'badge-done',watching:'badge-reading',wish:'badge-wish'};
-  const tagMap={theater:'🎭 극장',netflix:'📺 넷플릭스',watcha:'🎬 왓챠',wavve:'📡 웨이브',buy:'💿 소장'};
+  const waveSvg=`<svg width="14" height="14" viewBox="0 0 14 14" style="vertical-align:middle;margin-right:3px;border-radius:3px"><rect width="14" height="14" rx="3" fill="#0038FF"/><text x="7" y="10.5" font-size="9" fill="white" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900">W</text></svg>`;
+  const disneySvg=`<svg width="12" height="12" viewBox="0 0 12 12" style="vertical-align:middle;margin-right:3px"><circle cx="6" cy="6" r="5.5" fill="none" stroke="#2E7FA3" stroke-width="1.2"/><text x="6" y="9" font-size="6" fill="#2E7FA3" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-weight="bold">D+</text></svg>`;
+  const tagMap={theater:'🎬 극장',netflix:'🔴 넷플릭스',wavve:waveSvg+'웨이브',disney:disneySvg+'디즈니+',buy:'💿 소장'};
 
+  const genreIcon={movie:'🎬',musical:'🎭',exhibit:'🖼️',concert:'🎵'};
   function renderMovieItem(r,u){
     const stars=r.star?'★'.repeat(r.star)+'☆'.repeat(5-r.star):'';
     const tags=(r.tags||[]).map(t=>`<span class="badge" style="background:var(--beige-deep);color:var(--ink-mute)">${tagMap[t]||t}</span>`).join('');
     const statusBadge=r.status?`<span class="badge ${statusBadgeCls[r.status]||''}">${statusLabel[r.status]||r.status}</span>`:'';
+    const icon=genreIcon[r.cultureGenre||'movie']||'🎬';
     return `<div class="list-item" onclick="openEditMovieModal(${r.id},'${u}')">
-      ${r.poster?`<img class="list-cover" src="${r.poster}" alt="${r.title}" loading="lazy">`:`<div class="list-cover-ph">🎬</div>`}
+      ${r.poster?`<img class="list-cover" src="${r.poster}" alt="${r.title}" loading="lazy">`:`<div class="list-cover-ph">${icon}</div>`}
       <div class="list-body">
-        <div class="list-title">${r.title}</div>
+        <div class="list-title">${icon} ${r.title}</div>
         <div class="list-author">${r.director||''}${r.year?' · '+r.year:''}${r.genre?' · '+r.genre:''}</div>
         <div class="list-meta">${statusBadge}${stars?`<span class="list-stars">${stars}</span>`:''}${r.date?`<span class="list-date">${r.date}</span>`:''}${tags}</div>
         ${r.memo?`<div class="list-memo">${r.memo}</div>`:''}
@@ -1017,7 +1151,7 @@ function renderMovieListAll(){
     </div>`;
   }
 
-  const allMovies=USERS.flatMap(u=>getMovies(u).map(m=>({...m,_u:u})));
+  const allMovies=activeUsers().flatMap(u=>getMovies(u).map(m=>({...m,_u:u})));
 
   if(currentView==='list'){
     // 리스트: 관람현황 없이, 월별 구분선
@@ -1106,7 +1240,7 @@ function openEditModal(id,u){
   currentStar=r.star||0;currentStatus=r.status||'';currentTags=new Set(r.tags||[]);
   if(r.thumbnail){const p=document.getElementById('selPreview');p.style.display='flex';p.innerHTML=`<img src="${r.thumbnail}" alt="${r.title}"><div class="sel-preview-info"><h3>${r.title}</h3><p>${r.author||''}</p></div>`;}
   updateStars();updateStatusBtns();updateTagBtns();
-  document.getElementById('modalActions').innerHTML=`<button class="btn-cancel" onclick="closeBookModal()">취소</button><button class="btn-save" onclick="saveRecord()">저장</button>`;
+  document.getElementById('modalActions').innerHTML=`<button class="btn-delete" onclick="deleteRecord()">삭제</button><div style="display:flex;gap:8px"><button class="btn-cancel" onclick="closeBookModal()">취소</button><button class="btn-save" onclick="saveRecord()">저장</button></div>`;
   document.getElementById('bookOverlay').classList.add('open');
 }
 
@@ -1118,6 +1252,22 @@ function setStatus(s){currentStatus=s;updateStatusBtns();}
 function updateStatusBtns(){['done','reading'].forEach(s=>{const b=document.getElementById('st-'+s);if(b){b.className='status-opt';if(currentStatus===s)b.classList.add('on-'+s);}});}
 function toggleTag(t){currentTags.has(t)?currentTags.delete(t):currentTags.add(t);updateTagBtns();}
 function updateTagBtns(){const keys=['buy','library','review','gift','ebook'];document.querySelectorAll('#tagGroup .tag-opt').forEach((b,i)=>b.classList.toggle('on',currentTags.has(keys[i])));}
+
+function deleteRecord(){
+  if(!editingId)return;
+  if(!confirm('이 기록을 삭제할까요?'))return;
+  const targetUser=editingUser||currentUser;
+  const recs=getRecs(targetUser).filter(x=>x.id!==editingId);
+  saveRecs(targetUser,recs);closeBookModal();render();
+}
+
+function deleteMovieRecord(){
+  if(!editingMovieId)return;
+  if(!confirm('이 영화 기록을 삭제할까요?'))return;
+  const targetUser=editingMovieUser||'me';
+  const recs=getMovies(targetUser).filter(x=>x.id!==editingMovieId);
+  saveMovies(targetUser,recs);closeMovieModal();render();
+}
 
 function saveRecord(){
   const title=document.getElementById('fTitle').value.trim();
