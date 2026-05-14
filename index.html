@@ -835,7 +835,7 @@ function renderMonth(){
 
   // 달력에 표시할 데이터 (개인: 본인만 / 가족: 전체)
   const calRecs = currentUser==='all'
-    ? USERS.flatMap(u=>getRecs(u))
+    ? activeUsers().flatMap(u=>getRecs(u))
     : getRecs();
 
   const byDay={};
