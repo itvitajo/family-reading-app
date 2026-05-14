@@ -386,15 +386,10 @@ body { background: var(--beige); color: var(--ink); font-family: var(--font); mi
 </div>
 
 <div class="main">
-  <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;align-items:center;">
-    <button class="add-btn" id="addBtn" onclick="openAddModal()" style="margin-bottom:0">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      <span id="addBtnLabel">책 추가하기</span>
-    </button>
-    <button onclick="syncToCloud()" style="padding:12px 16px;background:white;border:1.5px solid var(--border);border-radius:var(--r);font-size:13px;cursor:pointer;font-family:var(--font);color:var(--ink-mute);display:flex;align-items:center;gap:6px">
-      ☁️ 클라우드 동기화
-    </button>
-  </div>
+  <button class="add-btn" id="addBtn" onclick="openAddModal()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    <span id="addBtnLabel">책 추가하기</span>
+  </button>
   <div id="statsRow" class="stats-row"></div>
   <div id="viewContent"></div>
 </div>
@@ -574,68 +569,6 @@ body { background: var(--beige); color: var(--ink); font-family: var(--font); mi
   </div>
 </div>
 
-<script type="module">
-// Firebase SDK
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyARIrXbgXEBPc658BnGbZc5zpDxaafmvXQ",
-  authDomain: "family-culture-log.firebaseapp.com",
-  projectId: "family-culture-log",
-  storageBucket: "family-culture-log.firebasestorage.app",
-  messagingSenderId: "193553199279",
-  appId: "1:193553199279:web:9ef49d5e37a4b52d9e645a",
-  measurementId: "G-PC2WL2B91E"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const DB_ID = 'familyCultureLog'; // 공유 문서 ID
-
-// Firestore 저장
-async function saveToCloud(key, data){
-  try{
-    await setDoc(doc(db, 'data', key), {value: JSON.stringify(data)});
-  }catch(e){ console.error('Cloud save error:', e); }
-}
-
-// Firestore 로드
-async function loadFromCloud(key){
-  try{
-    const snap = await getDoc(doc(db, 'data', key));
-    if(snap.exists()) return JSON.parse(snap.data().value);
-  }catch(e){ console.error('Cloud load error:', e); }
-  return null;
-}
-
-// 클라우드에서 전체 데이터 로드 후 앱 초기화
-async function initApp(){
-  // 책 데이터 로드
-  const cloudBooks = await loadFromCloud('books');
-  if(cloudBooks) localStorage.setItem('fam_books_v3', JSON.stringify(cloudBooks));
-
-  // 영화 데이터 로드
-  const cloudMovies = await loadFromCloud('movies');
-  if(cloudMovies) localStorage.setItem('fam_movies_v1', JSON.stringify(cloudMovies));
-
-  // 이름 데이터 로드
-  const cloudNames = await loadFromCloud('names');
-  if(cloudNames) localStorage.setItem('fam_names', JSON.stringify(cloudNames));
-
-  renderUserBar();
-  render();
-}
-
-// 원래 saveRecs, saveMovies, saveUserName 덮어쓰기
-const _origSetData = window._setData;
-window.cloudSaveBooks = ()=> saveToCloud('books', getData());
-window.cloudSaveMovies = ()=> saveToCloud('movies', JSON.parse(localStorage.getItem('fam_movies_v1')||'{}'));
-window.cloudSaveNames = ()=> saveToCloud('names', JSON.parse(localStorage.getItem('fam_names')||'{}'));
-
-// 앱 시작
-initApp();
-</script>
 
 <script>
 const KAKAO_KEY='e17c3cb4aa9b805f578ae3f2c8114929';
@@ -664,11 +597,11 @@ let movieStar=0,movieStatus='',movieTags=new Set(),editingMovieId=null,editingMo
 let currentSubTab='book'; // 'book' | 'movie' (우리가족 탭에서만 사용)
 
 function getData(){return JSON.parse(localStorage.getItem('fam_books_v3')||'{}');}
-function setData(d){localStorage.setItem('fam_books_v3',JSON.stringify(d));if(window.cloudSaveBooks)window.cloudSaveBooks();}
+function setData(d){localStorage.setItem('fam_books_v3',JSON.stringify(d));}
 function getRecs(u){return getData()[u||currentUser]||[];}
 function saveRecs(u,recs){const d=getData();d[u||currentUser]=recs;setData(d);}
 function getMovies(u){return JSON.parse(localStorage.getItem('fam_movies_v1')||'{}')[u||currentUser]||[];}
-function saveMovies(u,recs){const d=JSON.parse(localStorage.getItem('fam_movies_v1')||'{}');d[u||currentUser]=recs;localStorage.setItem('fam_movies_v1',JSON.stringify(d));if(window.cloudSaveMovies)window.cloudSaveMovies();}
+function saveMovies(u,recs){const d=JSON.parse(localStorage.getItem('fam_movies_v1')||'{}');d[u||currentUser]=recs;localStorage.setItem('fam_movies_v1',JSON.stringify(d));}
 
 function renderUserBar(){
   const row=document.getElementById('userRow');
@@ -743,7 +676,6 @@ function saveUserName(){
   if(!v)return;
   userNames[nameEditingUser]=v;
   localStorage.setItem('fam_names',JSON.stringify(userNames));
-  if(window.cloudSaveNames)window.cloudSaveNames();
   closeNameModal();renderUserBar();render();
 }
 function deleteMember(){
@@ -1416,9 +1348,8 @@ function selectBook(i){
 
 document.getElementById('movieSearchInput').addEventListener('keydown',e=>{if(e.key==='Enter')searchMovies();});
 document.getElementById('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')searchBooks();});
-// Firebase initApp이 renderUserBar + render 호출
-// (Firebase 로드 실패 시 폴백)
-if(!window.cloudSaveBooks){ renderUserBar(); render(); }
+renderUserBar();
+render();
 </script>
 </body>
 </html>
