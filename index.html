@@ -557,6 +557,7 @@ body { background: var(--beige); color: var(--ink); font-family: var(--font); mi
         <button class="tag-opt" onclick="toggleMovieTag('theater')">🎬 극장</button>
         <button class="tag-opt" onclick="toggleMovieTag('netflix')">🔴 넷플릭스</button>
         <button class="tag-opt" onclick="toggleMovieTag('wavve')"><svg width="18" height="18" viewBox="0 0 18 18" style="vertical-align:middle;margin-right:4px;border-radius:4px"><rect width="18" height="18" rx="4" fill="#0038FF"/><text x="9" y="13.5" font-size="11" fill="white" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900">W</text></svg>웨이브</button>
+        <button class="tag-opt" onclick="toggleMovieTag('coupang')"><svg width="18" height="18" viewBox="0 0 18 18" style="vertical-align:middle;margin-right:4px;border-radius:50%"><defs><linearGradient id="cg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#87CEEB"/><stop offset="100%" style="stop-color:#FFB6C1"/></linearGradient></defs><circle cx="9" cy="9" r="9" fill="url(#cg)"/><polygon points="9,4 12.5,11 5.5,11" fill="white" opacity="0.95"/></svg>쿠팡플레이</button>
         <button class="tag-opt" onclick="toggleMovieTag('disney')"><svg width="14" height="14" viewBox="0 0 14 14" style="vertical-align:middle;margin-right:4px"><circle cx="7" cy="7" r="6.5" fill="none" stroke="#2E7FA3" stroke-width="1.2"/><text x="7" y="10.5" font-size="7" fill="#2E7FA3" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-weight="bold">D+</text></svg>디즈니+</button>
         <button class="tag-opt" onclick="toggleMovieTag('buy')">💿 소장</button>
       </div>
@@ -1027,7 +1028,7 @@ function updateMovieStatusBtns(){
   });
 }
 function toggleMovieTag(t){movieTags.has(t)?movieTags.delete(t):movieTags.add(t);updateMovieTagBtns();}
-function updateMovieTagBtns(){const keys=['theater','netflix','wavve','disney','buy'];document.querySelectorAll('#movieTagGroup .tag-opt').forEach((b,i)=>b.classList.toggle('on',movieTags.has(keys[i])));}
+function updateMovieTagBtns(){const keys=['theater','netflix','wavve','coupang','disney','buy'];document.querySelectorAll('#movieTagGroup .tag-opt').forEach((b,i)=>b.classList.toggle('on',movieTags.has(keys[i])));}
 
 function saveMovieRecord(){
   const title=document.getElementById('mTitle').value.trim();
@@ -1131,9 +1132,10 @@ function renderMovieListAll(){
   const el=document.getElementById('viewContent');
   const statusLabel={done:'✅ 봤어요',watching:'🍿 보는 중',wish:'🔖 보고 싶음'};
   const statusBadgeCls={done:'badge-done',watching:'badge-reading',wish:'badge-wish'};
+  const coupangSvg=`<svg width="14" height="14" viewBox="0 0 14 14" style="vertical-align:middle;margin-right:3px;border-radius:50%"><defs><linearGradient id="cg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#87CEEB"/><stop offset="100%" style="stop-color:#FFB6C1"/></linearGradient></defs><circle cx="7" cy="7" r="7" fill="url(#cg2)"/><polygon points="7,3 10.5,9 3.5,9" fill="white" opacity="0.95"/></svg>`;
   const waveSvg=`<svg width="14" height="14" viewBox="0 0 14 14" style="vertical-align:middle;margin-right:3px;border-radius:3px"><rect width="14" height="14" rx="3" fill="#0038FF"/><text x="7" y="10.5" font-size="9" fill="white" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900">W</text></svg>`;
   const disneySvg=`<svg width="12" height="12" viewBox="0 0 12 12" style="vertical-align:middle;margin-right:3px"><circle cx="6" cy="6" r="5.5" fill="none" stroke="#2E7FA3" stroke-width="1.2"/><text x="6" y="9" font-size="6" fill="#2E7FA3" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-weight="bold">D+</text></svg>`;
-  const tagMap={theater:'🎬 극장',netflix:'🔴 넷플릭스',wavve:waveSvg+'웨이브',disney:disneySvg+'디즈니+',buy:'💿 소장'};
+  const tagMap={theater:'🎬 극장',netflix:'🔴 넷플릭스',wavve:waveSvg+'웨이브',coupang:coupangSvg+'쿠팡플레이',disney:disneySvg+'디즈니+',buy:'💿 소장'};
 
   const genreIcon={movie:'🎬',musical:'🎭',exhibit:'🖼️',concert:'🎵'};
   function renderMovieItem(r,u){
